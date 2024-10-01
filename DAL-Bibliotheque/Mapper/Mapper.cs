@@ -5,7 +5,7 @@ namespace DAL_Bibliotheque.Mapper
 {
     internal static class Mapper
     {
-
+        // Book
         public static EF.Book ToEF(this DAL.Book entity)
         {
             return new EF.Book
@@ -27,6 +27,27 @@ namespace DAL_Bibliotheque.Mapper
                 Edition = entity.Edition,
                 EditionDate = entity.EditionDate,
                 Price = entity.Price
+            };
+        }
+
+        // Author
+        public static EF.Author ToEF(this DAL.Author entity)
+        {
+            return new EF.Author
+            {
+                AuthorID = entity.AuthorID,
+                FirstName = entity.FirstName,
+                Name = entity.Name
+            };
+        }
+
+        public static DAL.Author ToDAL(this EF.Author entity)
+        {
+            return new DAL.Author
+            {
+                AuthorID = entity.AuthorID,
+                FirstName = entity.FirstName,
+                Name = entity.Name
             };
         }
     }

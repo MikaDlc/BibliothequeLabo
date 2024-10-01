@@ -5,50 +5,49 @@ using EF_Bibliotheque;
 
 namespace DAL_Bibliotheque.Services
 {
-    public class BookService : IBookRepository<Book>
+    public class AuthorService : IAuthorRepository<Author>
     {
         private DataContext _context;
 
-        public BookService(DataContext context)
+        public AuthorService(DataContext context)
         {
             _context = context;
         }
-
         public void Delete(int id)
         {
-            _context.Books.Remove(_context.Books.First(a => a.BookID == id));
+            _context.Authors.Remove(_context.Authors.First(a => a.AuthorID == id));
             _context.SaveChanges();
         }
 
-        public IEnumerable<Book> Get()
+        public IEnumerable<Author> Get()
         {
             try
             {
-                return _context.Books.Select(a => a.ToDAL());
+                return _context.Authors.Select(a => a.ToDAL());
             }
             catch (Exception)
             {
-                return new List<Book>();
+                return new List<Author>();
             }
         }
 
-        public Book Get(int id)
+        public Author Get(int id)
         {
             try
             {
-                return _context.Books.First(a => a.BookID == id).ToDAL();
+                return _context.Authors.First(a => a.AuthorID == id).ToDAL();
             }
             catch (Exception)
             {
-                return new Book();
+                return new Author();
             }
         }
 
-        public bool Insert(Book entity)
+        public bool Insert(Author entity)
         {
             try
             {
-                _context.Books.Add(entity.ToEF());
+                _context.Authors.Add(entity.ToEF());
                 _context.SaveChanges();
                 return true;
             }
@@ -58,13 +57,11 @@ namespace DAL_Bibliotheque.Services
             }
         }
 
-        public void Update(int id, Book entity)
+        public void Update(int id, Author entity)
         {
-            Book a = _context.Books.First(a => a.BookID == id).ToDAL();
-            a.Title = entity.Title;
-            a.Edition = entity.Edition;
-            a.EditionDate = entity.EditionDate;
-            a.Price = entity.Price;
+            var author = _context.Authors.First(a => a.AuthorID == id);
+            author.Name = entity.Name;
+            author.FirstName = entity.FirstName;
             _context.SaveChanges();
         }
     }
