@@ -1,6 +1,6 @@
 ﻿namespace EF_Bibliotheque.Entities
 {
-    internal class BookLease
+    public class BookLease
     {
         public int BookID { get; set; }
         public Book Book { get; set; }

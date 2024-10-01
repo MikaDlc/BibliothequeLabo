@@ -17,6 +17,10 @@ namespace EF_Bibliotheque.Configs
             builder.Property(c => c.PostalCode).IsRequired().HasMaxLength(10);
             builder.Property(c => c.City).IsRequired().HasMaxLength(50);
             builder.Property(c => c.Country).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Email).IsRequired().HasMaxLength(100);
+            builder.HasIndex(a => a.Email).IsUnique();
+            builder.Property(a => a.Passwd).IsRequired().HasMaxLength(100);
+            builder.Property(a => a.Salage).IsRequired().HasMaxLength(100);
         }
     }
 }

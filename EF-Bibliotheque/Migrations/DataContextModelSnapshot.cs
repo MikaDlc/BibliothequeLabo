@@ -22,46 +22,6 @@ namespace EF_Bibliotheque.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EF_Bibliotheque.Entities.Authentification", b =>
-                {
-                    b.Property<int>("AuthentificationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthentificationID"));
-
-                    b.Property<int>("ClientID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Passwd")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Salage")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("AuthentificationID");
-
-                    b.HasIndex("AuthentificationID")
-                        .IsUnique();
-
-                    b.HasIndex("ClientID")
-                        .IsUnique();
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Authentifications", (string)null);
-                });
-
             modelBuilder.Entity("EF_Bibliotheque.Entities.Author", b =>
                 {
                     b.Property<int>("AuthorID")
@@ -103,8 +63,8 @@ namespace EF_Bibliotheque.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("EditionDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("EditionDate")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -222,6 +182,11 @@ namespace EF_Bibliotheque.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -237,10 +202,20 @@ namespace EF_Bibliotheque.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<string>("Passwd")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Salage")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -248,6 +223,9 @@ namespace EF_Bibliotheque.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("ClientID");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Client", (string)null);
                 });
@@ -366,18 +344,6 @@ namespace EF_Bibliotheque.Migrations
                         .IsUnique();
 
                     b.ToTable("Sales", (string)null);
-                });
-
-            modelBuilder.Entity("EF_Bibliotheque.Entities.Authentification", b =>
-                {
-                    b.HasOne("EF_Bibliotheque.Entities.Client", "Client")
-                        .WithOne("Authentification")
-                        .HasForeignKey("EF_Bibliotheque.Entities.Authentification", "ClientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Client_Authentification");
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("EF_Bibliotheque.Entities.BookAuthor", b =>
@@ -519,9 +485,6 @@ namespace EF_Bibliotheque.Migrations
 
             modelBuilder.Entity("EF_Bibliotheque.Entities.Client", b =>
                 {
-                    b.Navigation("Authentification")
-                        .IsRequired();
-
                     b.Navigation("Leases");
 
                     b.Navigation("Sales");

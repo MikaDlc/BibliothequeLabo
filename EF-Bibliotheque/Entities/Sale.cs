@@ -1,6 +1,6 @@
 ﻿namespace EF_Bibliotheque.Entities
 {
-    internal class Sale
+    public class Sale
     {
         public int SaleID { get; set; }
         public double Price { get; set; }

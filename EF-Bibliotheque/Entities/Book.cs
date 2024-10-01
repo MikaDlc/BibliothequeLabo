@@ -1,11 +1,11 @@
 ﻿namespace EF_Bibliotheque.Entities
 {
-    internal class Book
+    public class Book
     {
         public int BookID { get; set; }
         public string Title { get; set; }
         public string Edition { get; set; }
-        public DateTime EditionDate { get; set; }
+        public int EditionDate { get; set; }
         public double Price { get; set; }
         public List<BookLibrary> BookLibraries { get; set; }
         public List<BookAuthor> BookAuthors { get; set; }

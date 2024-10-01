@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_Bibliotheque
 {
-    internal class DataContext : DbContext
+    public class DataContext : DbContext
     {
-        public DbSet<Authentification> Authentifications { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Lease> Leases { get; set; }
         public DbSet<Client> Clients { get; set; }
@@ -27,7 +26,6 @@ namespace EF_Bibliotheque
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AuthentificationConfig());
             modelBuilder.ApplyConfiguration(new AuthorConfig());
             modelBuilder.ApplyConfiguration(new BookAuthorConfig());
             modelBuilder.ApplyConfiguration(new BookConfig());

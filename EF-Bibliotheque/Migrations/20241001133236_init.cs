@@ -33,7 +33,7 @@ namespace EF_Bibliotheque.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Edition = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EditionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditionDate = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
@@ -53,7 +53,10 @@ namespace EF_Bibliotheque.Migrations
                     NumberH = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     PostalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Passwd = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Salage = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,28 +112,6 @@ namespace EF_Bibliotheque.Migrations
                         column: x => x.BookID,
                         principalTable: "Books",
                         principalColumn: "BookID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Authentifications",
-                columns: table => new
-                {
-                    AuthentificationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Passwd = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Salage = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ClientID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Authentifications", x => x.AuthentificationID);
-                    table.ForeignKey(
-                        name: "FK_Client_Authentification",
-                        column: x => x.ClientID,
-                        principalTable: "Client",
-                        principalColumn: "ClientID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -276,24 +257,6 @@ namespace EF_Bibliotheque.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Authentifications_AuthentificationID",
-                table: "Authentifications",
-                column: "AuthentificationID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Authentifications_ClientID",
-                table: "Authentifications",
-                column: "ClientID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Authentifications_Email",
-                table: "Authentifications",
-                column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Authors_AuthorID",
                 table: "Authors",
                 column: "AuthorID",
@@ -348,6 +311,12 @@ namespace EF_Bibliotheque.Migrations
                 column: "SaleID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Client_Email",
+                table: "Client",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Genres_GName",
                 table: "Genres",
                 column: "GName",
@@ -385,9 +354,6 @@ namespace EF_Bibliotheque.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Authentifications");
-
             migrationBuilder.DropTable(
                 name: "BookAuthors");
 
