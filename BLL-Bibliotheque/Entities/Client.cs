@@ -1,0 +1,21 @@
+﻿using Commun_Bibliotheque.Entities;
+
+namespace BLL_Bibliotheque.Entities
+{
+    public class Client : IClient
+    {
+        public int ClientID { get; set; }
+        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string Street { get; set; }
+        public string NumberH { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Email { get; set; }
+        public string passwd { get; set; }
+        public List<Sale> Sales { get; set; }
+        public List<Lease> Leases { get; set; }
+
+    }
+}

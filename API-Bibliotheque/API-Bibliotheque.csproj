@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>API_Bibliotheque</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BLL-Bibliotheque\BLL-Bibliotheque.csproj" />
+    <ProjectReference Include="..\Commun-Bibliotheque\Commun-Bibliotheque.csproj" />
+    <ProjectReference Include="..\DAL-Bibliotheque\DAL-Bibliotheque.csproj" />
+  </ItemGroup>
+
+</Project>
