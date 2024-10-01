@@ -49,5 +49,40 @@ namespace BLL_Bibliotheque.Mapper
                 Name = entity.Name,
             };
         }
+
+        // Client
+        public static BLL.Client ToBLL(this DAL.Client entity)
+        {
+            return new BLL.Client
+            {
+                ClientID = entity.ClientID,
+                FirstName = entity.FirstName,
+                Name = entity.Name,
+                Email = entity.Email,
+                Passwd = entity.Passwd,
+                City = entity.City,
+                PostalCode = entity.PostalCode,
+                Street = entity.Street,
+                Country = entity.Country,
+                NumberH = entity.NumberH
+            };
+        }
+
+        public static DAL.Client ToDAL(this BLL.Client entity)
+        {
+            return new DAL.Client
+            {
+                ClientID = entity.ClientID,
+                FirstName = entity.FirstName,
+                Name = entity.Name,
+                Email = entity.Email,
+                Passwd = entity.Passwd,
+                City = entity.City,
+                PostalCode = entity.PostalCode,
+                Street = entity.Street,
+                Country = entity.Country,
+                NumberH = entity.NumberH
+            };
+        }
     }
 }

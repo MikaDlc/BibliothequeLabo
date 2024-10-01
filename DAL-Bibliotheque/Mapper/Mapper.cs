@@ -50,5 +50,41 @@ namespace DAL_Bibliotheque.Mapper
                 Name = entity.Name
             };
         }
+
+        // Client
+        public static EF.Client ToEF(this DAL.Client entity)
+        {
+            return new EF.Client
+            {
+                ClientID = entity.ClientID,
+                FirstName = entity.FirstName,
+                Name = entity.Name,
+                Street = entity.Street,
+                NumberH = entity.NumberH,
+                PostalCode = entity.PostalCode,
+                City = entity.City,
+                Country = entity.Country,
+                Email = entity.Email,
+                Passwd = entity.Passwd,
+                Salage = "entity.Salage" // A definir avec l'autentification
+            };
+        }
+
+        public static DAL.Client ToDAL(this EF.Client entity)
+        {
+            return new DAL.Client
+            {
+                ClientID = entity.ClientID,
+                FirstName = entity.FirstName,
+                Email = entity.Email,
+                Passwd = entity.Passwd,
+                Name = entity.Name,
+                City = entity.City,
+                Country = entity.Country,
+                NumberH = entity.NumberH,
+                PostalCode = entity.PostalCode,
+                Street = entity.Street
+            };
+        }
     }
 }

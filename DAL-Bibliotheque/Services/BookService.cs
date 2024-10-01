@@ -60,12 +60,19 @@ namespace DAL_Bibliotheque.Services
 
         public void Update(int id, Book entity)
         {
-            Book a = _context.Books.First(a => a.BookID == id).ToDAL();
-            a.Title = entity.Title;
-            a.Edition = entity.Edition;
-            a.EditionDate = entity.EditionDate;
-            a.Price = entity.Price;
-            _context.SaveChanges();
+            try
+            {
+                Book a = _context.Books.First(a => a.BookID == id).ToDAL();
+                a.Title = entity.Title;
+                a.Edition = entity.Edition;
+                a.EditionDate = entity.EditionDate;
+                a.Price = entity.Price;
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Update failed");
+            }
         }
     }
 }

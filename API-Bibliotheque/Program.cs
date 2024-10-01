@@ -17,6 +17,8 @@ namespace API_Bibliotheque
             builder.Services.AddScoped<IBookRepository<BLL.Entities.Book>, BLL.Services.BookService>();
             builder.Services.AddScoped<IAuthorRepository<DAL.Entities.Author>, DAL.Services.AuthorService>();
             builder.Services.AddScoped<IAuthorRepository<BLL.Entities.Author>, BLL.Services.AuthorService>();
+            builder.Services.AddScoped<IClientRepository<DAL.Entities.Client>, DAL.Services.ClientService>();
+            builder.Services.AddScoped<IClientRepository<BLL.Entities.Client>, BLL.Services.ClientService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
