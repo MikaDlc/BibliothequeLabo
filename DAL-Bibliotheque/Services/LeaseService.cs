@@ -14,7 +14,7 @@ namespace DAL_Bibliotheque.Services
         }
         public void Delete(int id)
         {
-            _context.Leases.Remove(_context.Leases.Find(id));
+            _context.Leases.Remove(_context.Leases.First(l => l.LeaseID == id));
             _context.SaveChanges();
         }
 
@@ -25,7 +25,7 @@ namespace DAL_Bibliotheque.Services
 
         public Lease Get(int id)
         {
-            return _context.Leases.Find(id).ToDAL();
+            return _context.Leases.First(l => l.LeaseID == id).ToDAL();
         }
 
         public bool Insert(Lease entity)

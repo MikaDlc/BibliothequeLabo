@@ -18,9 +18,9 @@ namespace DAL_Bibliotheque.Services
             return _context.Genres.Select(g => g.ToDAL());
         }
 
-        public Genre Get(string id)
+        public Genre Get(string Genre)
         {
-            return _context.Genres.Find(id).ToDAL();
+            return _context.Genres.First(g => g.GName == Genre).ToDAL();
         }
 
         public bool Insert(Genre entity)

@@ -83,6 +83,17 @@ namespace API_Bibliotheque.Mapper
             };
         }
 
-
+        // Library
+        internal static BLL.Library ToBLL(this LibraryPost library)
+        {
+            return new BLL.Library
+            {
+                City = library.City,
+                PostalCode = library.PostalCode,
+                Street = library.Street,
+                Country = library.Country,
+                NumberH = library.NumberH
+            };
+        }
     }
 }

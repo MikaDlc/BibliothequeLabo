@@ -149,5 +149,32 @@ namespace BLL_Bibliotheque.Mapper
                 Price = entity.Price
             };
         }
+
+        // Library
+        public static BLL.Library ToBLL(this DAL.Library entity)
+        {
+            return new BLL.Library
+            {
+                LibraryID = entity.LibraryID,
+                City = entity.City,
+                PostalCode = entity.PostalCode,
+                Street = entity.Street,
+                Country = entity.Country,
+                NumberH = entity.NumberH,
+            };
+        }
+
+        public static DAL.Library ToDAL(this BLL.Library entity)
+        {
+            return new DAL.Library
+            {
+                LibraryID = entity.LibraryID,
+                City = entity.City,
+                PostalCode = entity.PostalCode,
+                Street = entity.Street,
+                Country = entity.Country,
+                NumberH = entity.NumberH,
+            };
+        }
     }
 }

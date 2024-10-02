@@ -151,5 +151,32 @@ namespace DAL_Bibliotheque.Mapper
                 Price = entity.Price
             };
         }
+
+        // Library
+        public static EF.Library ToEF(this DAL.Library entity)
+        {
+            return new EF.Library
+            {
+                LibraryID = entity.LibraryID,
+                Street = entity.Street,
+                NumberH = entity.NumberH,
+                PostalCode = entity.PostalCode,
+                City = entity.City,
+                Country = entity.Country
+            };
+        }
+
+        public static DAL.Library ToDAL(this EF.Library entity)
+        {
+            return new DAL.Library
+            {
+                LibraryID = entity.LibraryID,
+                Street = entity.Street,
+                NumberH = entity.NumberH,
+                PostalCode = entity.PostalCode,
+                City = entity.City,
+                Country = entity.Country
+            };
+        }
     }
 }
