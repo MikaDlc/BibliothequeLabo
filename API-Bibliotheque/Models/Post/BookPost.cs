@@ -1,4 +1,4 @@
-﻿namespace API_Bibliotheque.Models
+﻿namespace API_Bibliotheque.Models.Post
 {
     public class BookPost
     {

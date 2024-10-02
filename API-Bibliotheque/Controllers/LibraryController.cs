@@ -1,8 +1,8 @@
 ﻿using Commun_Bibliotheque.Repositories;
 using BLL = BLL_Bibliotheque.Entities;
 using Microsoft.AspNetCore.Mvc;
-using API_Bibliotheque.Models;
 using API_Bibliotheque.Mapper;
+using API_Bibliotheque.Models.Post;
 
 namespace API_Bibliotheque.Controllers
 {
@@ -19,7 +19,7 @@ namespace API_Bibliotheque.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_libraryRepository.Get());
+            return Ok(_libraryRepository.Get().Select(l => l.ToAPI()));
         }
 
         [HttpGet("{id}")]

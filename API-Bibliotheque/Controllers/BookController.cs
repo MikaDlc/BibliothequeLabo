@@ -1,5 +1,5 @@
 ﻿using API_Bibliotheque.Mapper;
-using API_Bibliotheque.Models;
+using API_Bibliotheque.Models.Post;
 using Commun_Bibliotheque.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using BLL = BLL_Bibliotheque.Entities;
@@ -20,7 +20,7 @@ namespace API_Bibliotheque.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_bookService.Get());
+            return Ok(_bookService.Get().Select(b => b.ToAPI()));
         }
 
         [HttpGet("{id:int}")]
