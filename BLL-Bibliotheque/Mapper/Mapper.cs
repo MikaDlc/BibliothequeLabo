@@ -101,5 +101,30 @@ namespace BLL_Bibliotheque.Mapper
                 GName = entity.GName,
             };
         }
+
+        // Lease
+        public static BLL.Lease ToBLL(this DAL.Lease entity)
+        {
+            return new BLL.Lease
+            {
+                LeaseID = entity.LeaseID,
+                LeaseDate = entity.LeaseDate,
+                ReturnDate = entity.ReturnDate,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
+
+        public static DAL.Lease ToDAL(this BLL.Lease entity)
+        {
+            return new DAL.Lease
+            {
+                LeaseID = entity.LeaseID,
+                LeaseDate = entity.LeaseDate,
+                ReturnDate = entity.ReturnDate,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
     }
 }

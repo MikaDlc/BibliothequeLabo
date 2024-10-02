@@ -1,6 +1,4 @@
 ﻿using Commun_Bibliotheque.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace DAL_Bibliotheque.Entities
 {

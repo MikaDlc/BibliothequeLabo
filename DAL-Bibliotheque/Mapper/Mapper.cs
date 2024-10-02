@@ -103,5 +103,30 @@ namespace DAL_Bibliotheque.Mapper
                 GName = entity.GName,
             };
         }
+
+        // Lease
+        public static EF.Lease ToEF(this DAL.Lease entity)
+        {
+            return new EF.Lease
+            {
+                LeaseID = entity.LeaseID,
+                LeaseDate = entity.LeaseDate,
+                ReturnDate = entity.ReturnDate,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
+
+        public static DAL.Lease ToDAL(this EF.Lease entity)
+        {
+            return new DAL.Lease
+            {
+                LeaseID = entity.LeaseID,
+                LeaseDate = entity.LeaseDate,
+                ReturnDate = entity.ReturnDate,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
     }
 }

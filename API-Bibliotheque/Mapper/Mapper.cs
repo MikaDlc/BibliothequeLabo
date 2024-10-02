@@ -1,4 +1,5 @@
 ﻿using API_Bibliotheque.Models;
+using Commun_Bibliotheque.Entities;
 using BLL = BLL_Bibliotheque.Entities;
 namespace API_Bibliotheque.Mapper
 {
@@ -49,6 +50,25 @@ namespace API_Bibliotheque.Mapper
             return new BLL.Genre
             {
                 GName = genre.GName,
+            };
+        }
+
+        // Lease
+        internal static BLL.Lease ToBLL(this LeasePost lease)
+        {
+            return new BLL.Lease
+            {
+                LeaseDate = lease.LeaseDate,
+                ClientID = lease.ClientID,
+                Price = lease.Price
+            };
+        }
+
+        internal static BLL.Lease ToBLL(this LeasePut lease)
+        {
+            return new BLL.Lease
+            {
+                ReturnDate = lease.ReturnDate
             };
         }
     }

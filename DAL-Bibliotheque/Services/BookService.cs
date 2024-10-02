@@ -62,11 +62,11 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                Book a = _context.Books.First(a => a.BookID == id).ToDAL();
-                a.Title = entity.Title;
-                a.Edition = entity.Edition;
-                a.EditionDate = entity.EditionDate;
-                a.Price = entity.Price;
+                var book = _context.Books.First(a => a.BookID == id);
+                book.Title = entity.Title;
+                book.Edition = entity.Edition;
+                book.EditionDate = entity.EditionDate;
+                book.Price = entity.Price;
                 _context.SaveChanges();
             }
             catch (Exception)

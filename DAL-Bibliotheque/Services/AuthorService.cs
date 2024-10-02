@@ -59,10 +59,17 @@ namespace DAL_Bibliotheque.Services
 
         public void Update(int id, Author entity)
         {
-            var author = _context.Authors.First(a => a.AuthorID == id);
-            author.Name = entity.Name;
-            author.FirstName = entity.FirstName;
-            _context.SaveChanges();
+            try
+            {
+                var author = _context.Authors.First(a => a.AuthorID == id);
+                author.Name = entity.Name;
+                author.FirstName = entity.FirstName;
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Update failed");
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Commun_Bibliotheque.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace BLL_Bibliotheque.Entities
 {

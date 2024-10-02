@@ -21,6 +21,8 @@ namespace API_Bibliotheque
             builder.Services.AddScoped<IClientRepository<BLL.Entities.Client>, BLL.Services.ClientService>();
             builder.Services.AddScoped<IGenreRepository<DAL.Entities.Genre>, DAL.Services.GenreService>();
             builder.Services.AddScoped<IGenreRepository<BLL.Entities.Genre>, BLL.Services.GenreService>();
+            builder.Services.AddScoped<ILeaseRepository<DAL.Entities.Lease>, DAL.Services.LeaseService>();
+            builder.Services.AddScoped<ILeaseRepository<BLL.Entities.Lease>, BLL.Services.LeaseService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
