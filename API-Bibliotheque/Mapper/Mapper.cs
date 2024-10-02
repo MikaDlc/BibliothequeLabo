@@ -42,5 +42,14 @@ namespace API_Bibliotheque.Mapper
                 NumberH = client.NumberH
             };
         }
+
+        // Genre
+        internal static BLL.Genre ToBLL(this GenrePost genre)
+        {
+            return new BLL.Genre
+            {
+                GName = genre.GName,
+            };
+        }
     }
 }

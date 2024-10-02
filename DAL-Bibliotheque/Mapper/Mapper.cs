@@ -86,5 +86,22 @@ namespace DAL_Bibliotheque.Mapper
                 Street = entity.Street
             };
         }
+
+        // Genre
+        public static EF.Genre ToEF(this DAL.Genre entity)
+        {
+            return new EF.Genre
+            {
+                GName = entity.GName,
+            };
+        }
+
+        public static DAL.Genre ToDAL(this EF.Genre entity)
+        {
+            return new DAL.Genre
+            {
+                GName = entity.GName,
+            };
+        }
     }
 }

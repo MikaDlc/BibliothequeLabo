@@ -84,5 +84,22 @@ namespace BLL_Bibliotheque.Mapper
                 NumberH = entity.NumberH
             };
         }
+
+        // Genre
+        public static BLL.Genre ToBLL(this DAL.Genre entity)
+        {
+            return new BLL.Genre
+            {
+                GName = entity.GName,
+            };
+        }
+
+        public static DAL.Genre ToDAL(this BLL.Genre entity)
+        {
+            return new DAL.Genre
+            {
+                GName = entity.GName,
+            };
+        }
     }
 }
