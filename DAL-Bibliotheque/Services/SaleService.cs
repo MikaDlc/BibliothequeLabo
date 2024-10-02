@@ -5,29 +5,29 @@ using EF_Bibliotheque;
 
 namespace DAL_Bibliotheque.Services
 {
-    public class GenreService : IGenreRepository<Genre>
+    public class SaleService : ISaleRepository<Sale>
     {
         private DataContext _context;
-        public GenreService(DataContext context)
+        public SaleService(DataContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<Genre> Get()
+        public IEnumerable<Sale> Get()
         {
-            return _context.Genres.Select(g => g.ToDAL());
+            return _context.Sales.Select(s => s.ToDAL());
         }
 
-        public Genre Get(string id)
+        public Sale Get(int id)
         {
-            return _context.Genres.Find(id).ToDAL();
+            return _context.Sales.Find(id).ToDAL();
         }
 
-        public bool Insert(Genre entity)
+        public bool Insert(Sale entity)
         {
             try
             {
-                _context.Genres.Add(entity.ToEF());
+                _context.Sales.Add(entity.ToEF());
                 _context.SaveChanges();
                 return true;
             }

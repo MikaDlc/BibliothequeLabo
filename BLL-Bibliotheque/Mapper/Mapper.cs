@@ -126,5 +126,28 @@ namespace BLL_Bibliotheque.Mapper
                 Price = entity.Price
             };
         }
+
+        // Sale
+        public static BLL.Sale ToBLL(this DAL.Sale entity)
+        {
+            return new BLL.Sale
+            {
+                SaleID = entity.SaleID,
+                DateSale = entity.DateSale,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
+
+        public static DAL.Sale ToDAL(this BLL.Sale entity)
+        {
+            return new DAL.Sale
+            {
+                SaleID = entity.SaleID,
+                DateSale = entity.DateSale,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
     }
 }

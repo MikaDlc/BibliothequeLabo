@@ -22,6 +22,17 @@ namespace API_Bibliotheque.Controllers
             return Ok(_genreService.Get());
         }
 
+        [HttpGet("{Genre}")]
+        public IActionResult Get(string Genre)
+        {
+            var genre = _genreService.Get(Genre);
+            if (genre == null)
+            {
+                return NotFound();
+            }
+            return Ok(genre);
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] GenrePost genre)
         {

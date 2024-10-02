@@ -128,5 +128,28 @@ namespace DAL_Bibliotheque.Mapper
                 Price = entity.Price
             };
         }
+
+        // Sale
+        public static EF.Sale ToEF(this DAL.Sale entity)
+        {
+            return new EF.Sale
+            {
+                SaleID = entity.SaleID,
+                DateSale = entity.DateSale,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
+
+        public static DAL.Sale ToDAL(this EF.Sale entity)
+        {
+            return new DAL.Sale
+            {
+                SaleID = entity.SaleID,
+                DateSale = entity.DateSale,
+                ClientID = entity.ClientID,
+                Price = entity.Price
+            };
+        }
     }
 }

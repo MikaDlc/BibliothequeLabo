@@ -71,5 +71,18 @@ namespace API_Bibliotheque.Mapper
                 ReturnDate = lease.ReturnDate
             };
         }
+
+        // Sale
+        internal static BLL.Sale ToBLL(this SalePost sale)
+        {
+            return new BLL.Sale
+            {
+                DateSale = sale.DateSale,
+                ClientID = sale.ClientID,
+                Price = sale.Price
+            };
+        }
+
+
     }
 }

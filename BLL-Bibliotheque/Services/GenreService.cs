@@ -17,6 +17,11 @@ namespace BLL_Bibliotheque.Services
             return _Service.Get().Select(c => c.ToBLL());
         }
 
+        public Genre Get(string id)
+        {
+            return _Service.Get(id).ToBLL();
+        }
+
         public bool Insert(Genre entity)
         {
             return _Service.Insert(entity.ToDAL());
