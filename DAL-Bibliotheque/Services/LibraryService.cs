@@ -52,6 +52,7 @@ namespace DAL_Bibliotheque.Services
                 library.PostalCode = entity.PostalCode;
                 library.City = entity.City;
                 library.Country = entity.Country;
+                _context.SaveChanges();
             }
             catch (Exception)
             {
