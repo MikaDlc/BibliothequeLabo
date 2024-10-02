@@ -10,7 +10,7 @@ namespace EF_Bibliotheque.Configs
         {
             builder.ToTable("Leases");
             builder.HasKey(l => l.LeaseID);
-            builder.HasIndex(l => l.LeaseDate).IsUnique();
+            builder.HasIndex(l => l.LeaseID).IsUnique();
             builder.Property(l => l.LeaseID).ValueGeneratedOnAdd();
             builder.Property(l => l.LeaseDate).IsRequired();
             builder.Property(l => l.ReturnDate).IsRequired(false);
