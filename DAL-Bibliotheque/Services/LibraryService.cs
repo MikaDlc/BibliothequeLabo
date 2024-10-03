@@ -2,6 +2,7 @@
 using DAL_Bibliotheque.Entities;
 using DAL_Bibliotheque.Mapper;
 using EF_Bibliotheque;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Bibliotheque.Services
 {
@@ -25,7 +26,8 @@ namespace DAL_Bibliotheque.Services
 
         public Library Get(int id)
         {
-            return _context.Libraries.First(l => l.LibraryID == id).ToDAL();
+            return _context.Libraries.Include(l => l.BookLibraries).ThenInclude(bl => bl.Book)
+                                     .First(l => l.LibraryID == id).ToDALDetails();
         }
 
         public bool Insert(Library entity)

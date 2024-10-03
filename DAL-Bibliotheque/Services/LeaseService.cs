@@ -2,6 +2,7 @@
 using DAL_Bibliotheque.Entities;
 using DAL_Bibliotheque.Mapper;
 using EF_Bibliotheque;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Bibliotheque.Services
 {
@@ -25,7 +26,9 @@ namespace DAL_Bibliotheque.Services
 
         public Lease Get(int id)
         {
-            return _context.Leases.First(l => l.LeaseID == id).ToDAL();
+            return _context.Leases.Include(l => l.BookLeases).ThenInclude(bl => bl.Book)
+                                  .Include(l => l.Client)
+                                  .First(l => l.LeaseID == id).ToDALDetails();
         }
 
         public bool Insert(Lease entity)

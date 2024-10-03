@@ -2,6 +2,7 @@
 using DAL_Bibliotheque.Entities;
 using DAL_Bibliotheque.Mapper;
 using EF_Bibliotheque;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Bibliotheque.Services
 {
@@ -36,7 +37,10 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                return _context.Books.First(a => a.BookID == id).ToDAL();
+                return _context.Books.Include(b => b.BookAuthors).ThenInclude(ba => ba.Author)
+                                     .Include(b => b.BookGenres).ThenInclude(bg => bg.Genre)
+                                     .Include(b => b.BookLibraries).ThenInclude(bl => bl.Library)
+                                     .First(b => b.BookID == id).ToDALDetails();
             }
             catch (Exception)
             {

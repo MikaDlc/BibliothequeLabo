@@ -25,7 +25,7 @@ namespace BLL_Bibliotheque.Services
 
         public Book Get(int id)
         {
-            return _Service.Get(id).ToBLL();
+            return _Service.Get(id).ToBLLDetails();
         }
 
         public bool Insert(Book entity)

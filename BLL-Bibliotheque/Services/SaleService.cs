@@ -19,7 +19,7 @@ namespace BLL_Bibliotheque.Services
 
         public Sale Get(int id)
         {
-            return _saleRepository.Get(id).ToBLL();
+            return _saleRepository.Get(id).ToBLLDetails();
         }
 
         public bool Insert(Sale entity)

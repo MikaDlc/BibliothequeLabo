@@ -2,6 +2,7 @@
 using DAL_Bibliotheque.Entities;
 using DAL_Bibliotheque.Mapper;
 using EF_Bibliotheque;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Bibliotheque.Services
 {
@@ -20,7 +21,8 @@ namespace DAL_Bibliotheque.Services
 
         public Genre Get(string Genre)
         {
-            return _context.Genres.First(g => g.GName == Genre).ToDAL();
+            return _context.Genres.Include(g => g.BookGenres).ThenInclude(bg => bg.Book)
+                                  .First(g => g.GName == Genre).ToDALDetails();
         }
 
         public bool Insert(Genre entity)

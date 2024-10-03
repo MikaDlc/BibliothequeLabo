@@ -1,4 +1,5 @@
-﻿using DAL = DAL_Bibliotheque.Entities;
+﻿using System.Runtime.CompilerServices;
+using DAL = DAL_Bibliotheque.Entities;
 using EF = EF_Bibliotheque.Entities;
 
 namespace DAL_Bibliotheque.Mapper
@@ -30,6 +31,21 @@ namespace DAL_Bibliotheque.Mapper
             };
         }
 
+        public static DAL.Book ToDALDetails(this EF.Book entity)
+        {
+            return new DAL.Book
+            {
+                BookID = entity.BookID,
+                Title = entity.Title,
+                Edition = entity.Edition,
+                EditionDate = entity.EditionDate,
+                Price = entity.Price,
+                BookLibraries = entity.BookLibraries.Select(bl => bl.ToDAL()).ToList(),
+                BookAuthors = entity.BookAuthors.Select(ba => ba.ToDAL()).ToList(),
+                BookGenres = entity.BookGenres.Select(bg => bg.ToDAL()).ToList()
+            };
+        }
+
         // Author
         public static EF.Author ToEF(this DAL.Author entity)
         {
@@ -48,6 +64,17 @@ namespace DAL_Bibliotheque.Mapper
                 AuthorID = entity.AuthorID,
                 FirstName = entity.FirstName,
                 Name = entity.Name
+            };
+        }
+
+        public static DAL.Author ToDALDetails(this EF.Author entity)
+        {
+            return new DAL.Author
+            {
+                AuthorID = entity.AuthorID,
+                FirstName = entity.FirstName,
+                Name = entity.Name,
+                BookAuthors = entity.BookAuthors.Select(ba => ba.ToDAL()).ToList()
             };
         }
 
@@ -87,6 +114,25 @@ namespace DAL_Bibliotheque.Mapper
             };
         }
 
+        public static DAL.Client ToDALDetails(this EF.Client entity)
+        {
+            return new DAL.Client
+            {
+                ClientID = entity.ClientID,
+                FirstName = entity.FirstName,
+                Email = entity.Email,
+                Passwd = entity.Passwd,
+                Name = entity.Name,
+                City = entity.City,
+                Country = entity.Country,
+                NumberH = entity.NumberH,
+                PostalCode = entity.PostalCode,
+                Street = entity.Street,
+                Leases = entity.Leases.Select(l => l.ToDAL()).ToList(),
+                Sales = entity.Sales.Select(s => s.ToDAL()).ToList()
+            };
+        }
+
         // Genre
         public static EF.Genre ToEF(this DAL.Genre entity)
         {
@@ -101,6 +147,15 @@ namespace DAL_Bibliotheque.Mapper
             return new DAL.Genre
             {
                 GName = entity.GName,
+            };
+        }
+
+        public static DAL.Genre ToDALDetails(this EF.Genre entity)
+        {
+            return new DAL.Genre
+            {
+                GName = entity.GName,
+                BookGenres = entity.BookGenres.Select(bg => bg.ToDAL()).ToList()
             };
         }
 
@@ -129,6 +184,20 @@ namespace DAL_Bibliotheque.Mapper
             };
         }
 
+        public static DAL.Lease ToDALDetails(this EF.Lease entity)
+        {
+            return new DAL.Lease
+            {
+                LeaseID = entity.LeaseID,
+                LeaseDate = entity.LeaseDate,
+                ReturnDate = entity.ReturnDate,
+                ClientID = entity.ClientID,
+                Client = entity.Client.ToDAL(),
+                Price = entity.Price,
+                BookLeases = entity.BookLeases.Select(bl => bl.ToDAL()).ToList()
+            };
+        }
+
         // Sale
         public static EF.Sale ToEF(this DAL.Sale entity)
         {
@@ -149,6 +218,19 @@ namespace DAL_Bibliotheque.Mapper
                 DateSale = entity.DateSale,
                 ClientID = entity.ClientID,
                 Price = entity.Price
+            };
+        }
+
+        public static DAL.Sale ToDALDetails(this EF.Sale entity)
+        {
+            return new DAL.Sale
+            {
+                SaleID = entity.SaleID,
+                DateSale = entity.DateSale,
+                ClientID = entity.ClientID,
+                Client = entity.Client.ToDAL(),
+                Price = entity.Price,
+                BookSales = entity.BookSales.Select(bs => bs.ToDAL()).ToList()
             };
         }
 
@@ -176,6 +258,81 @@ namespace DAL_Bibliotheque.Mapper
                 PostalCode = entity.PostalCode,
                 City = entity.City,
                 Country = entity.Country
+            };
+        }
+
+        public static DAL.Library ToDALDetails(this EF.Library entity)
+        {
+            return new DAL.Library
+            {
+                LibraryID = entity.LibraryID,
+                Street = entity.Street,
+                NumberH = entity.NumberH,
+                PostalCode = entity.PostalCode,
+                City = entity.City,
+                Country = entity.Country,
+                BookLibraries = entity.BookLibraries.Select(bl => bl.ToDAL()).ToList()
+            };
+        }
+
+        // BookLibrairy
+        private static DAL.BookLibrary ToDAL(this EF.BookLibrary entity)
+        {
+            return new DAL.BookLibrary
+            {
+                BookID = entity.BookID,
+                Book = entity.Book.ToDAL(),
+                LibraryID = entity.LibraryID,
+                Library = entity.Library.ToDAL(),
+                QDispo = entity.QDispo
+            };
+        }
+
+        // BookAuthor
+        private static DAL.BookAuthor ToDAL(this EF.BookAuthor entity)
+        {
+            return new DAL.BookAuthor
+            {
+                BookID = entity.BookID,
+                Book = entity.Book.ToDAL(),
+                AuthorID = entity.AuthorID,
+                Author = entity.Author.ToDAL(),
+            };
+        }
+
+        // BookGenre
+        private static DAL.BookGenre ToDAL(this EF.BookGenre entity)
+        {
+            return new DAL.BookGenre
+            {
+                BookID = entity.BookID,
+                Book = entity.Book.ToDAL(),
+                GName = entity.GName,
+                Genre = entity.Genre.ToDAL(),
+            };
+        }
+
+        // BookSale
+        private static DAL.BookSale ToDAL(this EF.BookSale entity)
+        {
+            return new DAL.BookSale
+            {
+                BookID = entity.BookID,
+                Book = entity.Book.ToDAL(),
+                SaleID = entity.SaleID,
+                Sale = entity.Sale.ToDAL(),
+            };
+        }
+
+        // BookLease
+        private static DAL.BookLease ToDAL(this EF.BookLease entity)
+        {
+            return new DAL.BookLease
+            {
+                BookID = entity.BookID,
+                Book = entity.Book.ToDAL(),
+                LeaseID = entity.LeaseID,
+                Lease = entity.Lease.ToDAL(),
             };
         }
     }
