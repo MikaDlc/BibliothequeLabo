@@ -14,8 +14,6 @@ namespace EF_Bibliotheque.Configs
             builder.Property(s => s.SaleID).ValueGeneratedOnAdd();
             builder.Property(s => s.Price).IsRequired();
             builder.Property(s => s.DateSale).IsRequired();
-
-            builder.HasOne(s => s.Client).WithMany(c => c.Sales).HasForeignKey(s => s.ClientID).HasConstraintName("FK_Sale_Client");
         }
     }
 }
