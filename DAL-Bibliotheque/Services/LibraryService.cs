@@ -30,17 +30,17 @@ namespace DAL_Bibliotheque.Services
                                      .First(l => l.LibraryID == id).ToDALDetails();
         }
 
-        public bool Insert(Library entity)
+        public int Insert(Library entity)
         {
             try
             {
-                _context.Libraries.Add(entity.ToEF());
+                int id = (_context.Libraries.Add(entity.ToEF())).Entity.LibraryID;
                 _context.SaveChanges();
-                return true;
+                return id;
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("Insert failed");
             }
         }
 

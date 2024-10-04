@@ -36,12 +36,19 @@ namespace API_Bibliotheque.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] GenrePost genre)
         {
-            if (genre == null)
+            try
             {
-                return BadRequest();
+                if (genre == null)
+                {
+                    return BadRequest();
+                }
+                _genreService.Insert(genre.ToBLL());
+                return CreatedAtAction(nameof(Get), genre);
             }
-            _genreService.Insert(genre.ToBLL());
-            return CreatedAtAction(nameof(Get), genre);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

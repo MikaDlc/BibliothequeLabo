@@ -2,7 +2,9 @@
 
 namespace Commun_Bibliotheque.Repositories
 {
-    public interface IBookGenreRepository<TBookGenre> : ICRUDRepository<TBookGenre, int> where TBookGenre : IBookGenre
+    public interface IBookGenreRepository<TBookGenre> where TBookGenre : IBookGenre
     {
+        public void Insert(TBookGenre entity);
+        public void Delete(int BookID, string GenreID);
     }
 }

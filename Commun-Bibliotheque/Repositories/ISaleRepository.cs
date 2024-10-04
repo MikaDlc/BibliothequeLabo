@@ -7,6 +7,6 @@ namespace Commun_Bibliotheque.Repositories
     {
         public IEnumerable<TSale> Get();
         public TSale Get(int id);
-        public bool Insert(TSale entity);
+        public int Insert(TSale entity);
     }
 }

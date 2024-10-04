@@ -31,8 +31,17 @@ namespace API_Bibliotheque.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] SalePost sale)
         {
-            _saleRepository.Insert(sale.ToBLL());
-            return CreatedAtAction(nameof(Get), sale);
+            try
+            {
+                if (sale == null)
+                    return BadRequest();
+                _saleRepository.Insert(sale.ToBLL());
+                return CreatedAtAction(nameof(Get), sale);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

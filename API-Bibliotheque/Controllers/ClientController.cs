@@ -37,12 +37,19 @@ namespace API_Bibliotheque.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ClientPost client)
         {
-            if (client == null)
+            try
             {
-                return BadRequest();
+                if (client == null)
+                {
+                    return BadRequest();
+                }
+                _clientService.Insert(client.ToBLL());
+                return CreatedAtAction(nameof(Get), client);
             }
-            _clientService.Insert(client.ToBLL());
-            return CreatedAtAction(nameof(Get), client);
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id:int}")]

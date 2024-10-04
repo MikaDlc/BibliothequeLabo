@@ -22,7 +22,7 @@ namespace BLL_Bibliotheque.Services
             return _saleRepository.Get(id).ToBLLDetails();
         }
 
-        public bool Insert(Sale entity)
+        public int Insert(Sale entity)
         {
             return _saleRepository.Insert(entity.ToDAL());
         }

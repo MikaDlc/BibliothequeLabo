@@ -25,18 +25,17 @@ namespace DAL_Bibliotheque.Services
                                  .Include(s => s.Client)
                                  .First(s => s.SaleID == id).ToDALDetails();
         }
-
-        public bool Insert(Sale entity)
+        public int Insert(Sale entity)
         {
             try
             {
-                _context.Sales.Add(entity.ToEF());
+                int id = (_context.Sales.Add(entity.ToEF())).Entity.SaleID;
                 _context.SaveChanges();
-                return true;
+                return id;
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("Insert failed");
             }
         }
     }

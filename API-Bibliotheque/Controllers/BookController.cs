@@ -29,24 +29,37 @@ namespace API_Bibliotheque.Controllers
             var book = _bookService.Get(id);
             if (book == null)
             {
-                return NotFound();
+                return BadRequest("Book not exist");
             }
             return Ok(book);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]BookPost book)
+        public IActionResult Post([FromBody] BookPost book)
         {
-            if (book == null)
+            try
             {
-                return BadRequest();
+                if (book == null)
+                {
+                    return BadRequest();
+                }
+
+                int bookId = _bookService.Insert(book.ToBLL());
+
+
+                if (bookId == -1)
+                    return BadRequest("Book already exists");
+                else
+                    return CreatedAtAction(nameof(Get), book);
             }
-            _bookService.Insert(book.ToBLL());
-            return CreatedAtAction(nameof(Get), book);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult Put([FromRoute]int id,[FromBody] BookPost book)
+        public IActionResult Put([FromRoute] int id, [FromBody] BookPost book)
         {
             if (book == null)
             {

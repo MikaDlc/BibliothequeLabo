@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using DAL = DAL_Bibliotheque.Entities;
+﻿using DAL = DAL_Bibliotheque.Entities;
 using EF = EF_Bibliotheque.Entities;
 
 namespace DAL_Bibliotheque.Mapper
@@ -288,6 +287,16 @@ namespace DAL_Bibliotheque.Mapper
             };
         }
 
+        public static EF.BookLibrary ToEF(this DAL.BookLibrary entity)
+        {
+            return new EF.BookLibrary
+            {
+                BookID = entity.BookID,
+                LibraryID = entity.LibraryID,
+                QDispo = entity.QDispo
+            };
+        }
+
         // BookAuthor
         private static DAL.BookAuthor ToDAL(this EF.BookAuthor entity)
         {
@@ -297,6 +306,15 @@ namespace DAL_Bibliotheque.Mapper
                 Book = entity.Book.ToDAL(),
                 AuthorID = entity.AuthorID,
                 Author = entity.Author.ToDAL(),
+            };
+        }
+
+        public static EF.BookAuthor ToEF(this DAL.BookAuthor entity)
+        {
+            return new EF.BookAuthor
+            {
+                BookID = entity.BookID,
+                AuthorID = entity.AuthorID,
             };
         }
 
@@ -312,6 +330,15 @@ namespace DAL_Bibliotheque.Mapper
             };
         }
 
+        public static EF.BookGenre ToEF(this DAL.BookGenre entity)
+        {
+            return new EF.BookGenre
+            {
+                BookID = entity.BookID,
+                GName = entity.GName,
+            };
+        }
+
         // BookSale
         private static DAL.BookSale ToDAL(this EF.BookSale entity)
         {
@@ -324,6 +351,15 @@ namespace DAL_Bibliotheque.Mapper
             };
         }
 
+        public static EF.BookSale ToEF(this DAL.BookSale entity)
+        {
+            return new EF.BookSale
+            {
+                BookID = entity.BookID,
+                SaleID = entity.SaleID,
+            };
+        }
+
         // BookLease
         private static DAL.BookLease ToDAL(this EF.BookLease entity)
         {
@@ -333,6 +369,15 @@ namespace DAL_Bibliotheque.Mapper
                 Book = entity.Book.ToDAL(),
                 LeaseID = entity.LeaseID,
                 Lease = entity.Lease.ToDAL(),
+            };
+        }
+
+        public static EF.BookLease ToEF(this DAL.BookLease entity)
+        {
+            return new EF.BookLease
+            {
+                BookID = entity.BookID,
+                LeaseID = entity.LeaseID,
             };
         }
     }

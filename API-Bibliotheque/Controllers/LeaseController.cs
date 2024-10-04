@@ -37,16 +37,23 @@ namespace API_Bibliotheque.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] LeasePost lease)
         {
-            if (lease == null)
+            try
             {
-                return BadRequest();
+                if (lease == null)
+                {
+                    return BadRequest();
+                }
+                _leaseService.Insert(lease.ToBLL());
+                return CreatedAtAction(nameof(Get), lease);
             }
-            _leaseService.Insert(lease.ToBLL());
-            return CreatedAtAction(nameof(Get), lease);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult Put([FromRoute] int id,[FromBody] LeasePut lease)
+        public IActionResult Put([FromRoute] int id, [FromBody] LeasePut lease)
         {
             if (lease == null)
             {

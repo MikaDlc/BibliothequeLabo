@@ -7,7 +7,7 @@ namespace Commun_Bibliotheque.Repositories
     {
         public IEnumerable<TGenre> Get();
         public TGenre Get(string id);
-        public bool Insert(TGenre entity);
+        public string Insert(TGenre entity);
 
     }
 }

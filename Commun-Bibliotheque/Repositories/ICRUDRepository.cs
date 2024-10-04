@@ -7,7 +7,7 @@ namespace Commun_Bibliotheque.Repositories
     {
         public IEnumerable<TEntity> Get();
         public TEntity Get(TId id);
-        public bool Insert(TEntity entity);
+        public int Insert(TEntity entity);
         public void Update(TId id, TEntity entity);
         public void Delete(TId id);
     }

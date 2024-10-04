@@ -27,7 +27,7 @@ namespace BLL_Bibliotheque.Services
             return _libraryRepository.Get(id).ToBLLDetails();
         }
 
-        public bool Insert(Library entity)
+        public int Insert(Library entity)
         {
             return _libraryRepository.Insert(entity.ToDAL());
         }

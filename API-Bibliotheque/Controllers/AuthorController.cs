@@ -36,12 +36,19 @@ namespace API_Bibliotheque.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] AuthorPost author)
         {
-            if (author == null)
+            try
             {
-                return BadRequest();
+                if (author == null)
+                {
+                    return BadRequest();
+                }
+                _authorService.Insert(author.ToBLL());
+                return CreatedAtAction(nameof(Get), author);
             }
-            _authorService.Insert(author.ToBLL());
-            return CreatedAtAction(nameof(Get), author);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id:int}")]

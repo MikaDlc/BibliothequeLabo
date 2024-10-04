@@ -48,17 +48,18 @@ namespace DAL_Bibliotheque.Services
             }
         }
 
-        public bool Insert(Book entity)
+        public int Insert(Book entity)
         {
             try
             {
-                _context.Books.Add(entity.ToEF());
+                var book = entity.ToEF();
+                _context.Books.Add(book);
                 _context.SaveChanges();
-                return true;
+                return book.BookID;
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("Insert failed");
             }
         }
 

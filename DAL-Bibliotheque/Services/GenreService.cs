@@ -25,17 +25,17 @@ namespace DAL_Bibliotheque.Services
                                   .First(g => g.GName == Genre).ToDALDetails();
         }
 
-        public bool Insert(Genre entity)
+        public string Insert(Genre entity)
         {
             try
             {
-                _context.Genres.Add(entity.ToEF());
+                string Genre = (_context.Genres.Add(entity.ToEF())).Entity.GName;
                 _context.SaveChanges();
-                return true;
+                return Genre;
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("Insert failed");
             }
         }
     }

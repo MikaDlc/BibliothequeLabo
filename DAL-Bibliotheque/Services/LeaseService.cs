@@ -31,18 +31,18 @@ namespace DAL_Bibliotheque.Services
                                   .First(l => l.LeaseID == id).ToDALDetails();
         }
 
-        public bool Insert(Lease entity)
+        public int Insert(Lease entity)
         {
             // TODO Gerer l'ClientID non présent
             try
             {
-                _context.Leases.Add(entity.ToEF());
+                int id = (_context.Leases.Add(entity.ToEF())).Entity.LeaseID;
                 _context.SaveChanges();
-                return true;
+                return id;
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception("Insert failed");
             }
         }
 

@@ -34,10 +34,17 @@ namespace API_Bibliotheque.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] LibraryPost library)
         {
-            if (library == null)
-                return BadRequest();
-            _libraryRepository.Insert(library.ToBLL());
-            return CreatedAtAction(nameof(Get), library);
+            try
+            {
+                if (library == null)
+                    return BadRequest();
+                _libraryRepository.Insert(library.ToBLL());
+                return CreatedAtAction(nameof(Get), library);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id:int}")]
