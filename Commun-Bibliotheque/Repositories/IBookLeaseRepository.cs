@@ -2,7 +2,9 @@
 
 namespace Commun_Bibliotheque.Repositories
 {
-    public interface IBookLeaseRepository<TBookLease> : ICRUDRepository<TBookLease, int> where TBookLease : IBookLease
+    public interface IBookLeaseRepository<TBookLease> where TBookLease : IBookLease
     {
+        public void Insert(TBookLease entity);
+        public void Delete(int BookID, int LeaseID);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Commun_Bibliotheque.Repositories
 {
-    public  interface IBookSaleRepository<TBookSale> : ICRUDRepository<TBookSale, int> where TBookSale : IBookSale
+    public  interface IBookSaleRepository<TBookSale> where TBookSale : IBookSale
     {
+        public void Insert(TBookSale entity);
+        public void Delete(int BookID, int SaleID);
     }
 }

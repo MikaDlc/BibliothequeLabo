@@ -8,9 +8,11 @@ namespace BLL_Bibliotheque.Services
     public class SaleService : ISaleRepository<Sale>
     {
         private ISaleRepository<DAL.Sale> _saleRepository;
-        public SaleService(ISaleRepository<DAL.Sale> saleRepository)
+        private IBookSaleRepository<DAL.BookSale> _bookSaleRepository;
+        public SaleService(ISaleRepository<DAL.Sale> saleRepository, IBookSaleRepository<DAL.BookSale> bookSaleRepository)
         {
             _saleRepository = saleRepository;
+            _bookSaleRepository = bookSaleRepository;
         }
         public IEnumerable<Sale> Get()
         {
@@ -24,7 +26,11 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Sale entity)
         {
-            return _saleRepository.Insert(entity.ToDAL());
+            int saleID = _saleRepository.Insert(entity.ToDAL());
+            foreach (var bookSale in entity.BookSales) 
+                _bookSaleRepository.Insert(new DAL.BookSale { SaleID = saleID, BookID = bookSale.BookID});
+
+            return saleID;
         }
     }
 }

@@ -49,9 +49,10 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                int id = (_context.Authors.Add(entity.ToEF())).Entity.AuthorID;
+                var author = entity.ToEF();
+                _context.Authors.Add(author);
                 _context.SaveChanges();
-                return id;
+                return author.AuthorID;
             }
             catch (Exception)
             {

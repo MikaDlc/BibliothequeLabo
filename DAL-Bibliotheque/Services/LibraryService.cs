@@ -34,9 +34,10 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                int id = (_context.Libraries.Add(entity.ToEF())).Entity.LibraryID;
+                var library = entity.ToEF();
+                _context.Libraries.Add(library);
                 _context.SaveChanges();
-                return id;
+                return library.LibraryID;
             }
             catch (Exception)
             {

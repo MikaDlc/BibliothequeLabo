@@ -49,9 +49,10 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                int id = (_context.Clients.Add(entity.ToEF())).Entity.ClientID;
+                var client = entity.ToEF();
+                _context.Clients.Add(client);
                 _context.SaveChanges();
-                return id;
+                return client.ClientID;
             }
             catch (Exception)
             {

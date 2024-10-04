@@ -29,9 +29,10 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                string Genre = (_context.Genres.Add(entity.ToEF())).Entity.GName;
+                var genre = entity.ToEF();
+                _context.Genres.Add(genre);
                 _context.SaveChanges();
-                return Genre;
+                return genre.GName;
             }
             catch (Exception)
             {

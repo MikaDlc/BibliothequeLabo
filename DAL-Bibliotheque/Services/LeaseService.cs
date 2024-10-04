@@ -36,9 +36,10 @@ namespace DAL_Bibliotheque.Services
             // TODO Gerer l'ClientID non présent
             try
             {
-                int id = (_context.Leases.Add(entity.ToEF())).Entity.LeaseID;
+                var lease = entity.ToEF();
+                _context.Leases.Add(lease);
                 _context.SaveChanges();
-                return id;
+                return lease.LeaseID;
             }
             catch (Exception)
             {

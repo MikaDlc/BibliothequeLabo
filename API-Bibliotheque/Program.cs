@@ -30,6 +30,8 @@ namespace API_Bibliotheque
             builder.Services.AddScoped<IBookAuthorRepository<DAL.Entities.BookAuthor>, DAL.Services.BookAuthorService>();
             builder.Services.AddScoped<IBookGenreRepository<DAL.Entities.BookGenre>, DAL.Services.BookGenreService>();
             builder.Services.AddScoped<IBookLibraryRepository<DAL.Entities.BookLibrary>, DAL.Services.BookLibraryService>();
+            builder.Services.AddScoped<IBookSaleRepository<DAL.Entities.BookSale>, DAL.Services.BookSaleService>();
+            builder.Services.AddScoped<IBookLeaseRepository<DAL.Entities.BookLease>, DAL.Services.BookLeaseService>();
 
 
             builder.Services.AddControllers();

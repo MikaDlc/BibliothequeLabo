@@ -8,9 +8,11 @@ namespace BLL_Bibliotheque.Services
     public class LeaseService : ILeaseRepository<Lease>
     {
         private ILeaseRepository<DAL.Lease> _Service;
-        public LeaseService(ILeaseRepository<DAL.Lease> Service)
+        private IBookLeaseRepository<DAL.BookLease> _bookLeaseService;
+        public LeaseService(ILeaseRepository<DAL.Lease> Service, IBookLeaseRepository<DAL.BookLease> bookLeaseService)
         {
             _Service = Service;
+            _bookLeaseService = bookLeaseService;
         }
         public void Delete(int id)
         {
@@ -29,7 +31,11 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Lease entity)
         {
-            return _Service.Insert(entity.ToDAL());
+            int LeaseID = _Service.Insert(entity.ToDAL());
+            foreach (BookLease bookLease in entity.BookLeases)
+                _bookLeaseService.Insert(new DAL.BookLease { LeaseID = LeaseID, BookID = bookLease.BookID });
+
+            return LeaseID;
         }
 
         public void Update(int id, Lease entity)
