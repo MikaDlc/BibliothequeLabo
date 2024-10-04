@@ -9,6 +9,12 @@ namespace API_Bibliotheque.Mapper
         // Book
         internal static BLL.Book ToBLL(this BookPost book)
         { 
+            List<BLL.BookLibrary> bookLibraries = new List<BLL.BookLibrary>();
+            for (int i = 0; i < book.Libraries.Count; i++)
+            {
+                bookLibraries.Add(new BLL.BookLibrary { LibraryID = book.Libraries[i], QDispo = book.LibraryQuantity[i] });
+            }
+
             return new BLL.Book
             {
                 Title = book.Title,
@@ -17,7 +23,7 @@ namespace API_Bibliotheque.Mapper
                 Price = book.Price,
                 BookAuthors = book.Authors.Select(a => new BLL.BookAuthor { AuthorID = a }).ToList(),
                 BookGenres = book.Genres.Select(g => new BLL.BookGenre { GName = g }).ToList(),
-                BookLibraries = book.Libraries.Select(l => new BLL.BookLibrary { LibraryID = l }).ToList(),
+                BookLibraries = bookLibraries,
             };
         }
 

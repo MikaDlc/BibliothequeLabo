@@ -7,40 +7,60 @@ namespace BLL_Bibliotheque.Services
 {
     public class LeaseService : ILeaseRepository<Lease>
     {
-        private ILeaseRepository<DAL.Lease> _Service;
+        private ILeaseRepository<DAL.Lease> _leaseService;
         private IBookLeaseRepository<DAL.BookLease> _bookLeaseService;
-        public LeaseService(ILeaseRepository<DAL.Lease> Service, IBookLeaseRepository<DAL.BookLease> bookLeaseService)
+        private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryService;
+        private IBookRepository<DAL.Book> _bookService;
+        public LeaseService(ILeaseRepository<DAL.Lease> Service, 
+                            IBookLeaseRepository<DAL.BookLease> bookLeaseService, 
+                            IBookLibraryRepository<DAL.BookLibrary> bookLibraryService,
+                            IBookRepository<DAL.Book> bookService)
         {
-            _Service = Service;
+            _leaseService = Service;
             _bookLeaseService = bookLeaseService;
-        }
-        public void Delete(int id)
-        {
-            _Service.Delete(id);
+            _bookLibraryService = bookLibraryService;
+            _bookService = bookService;
         }
 
         public IEnumerable<Lease> Get()
         {
-            return _Service.Get().Select(l => l.ToBLL());
+            return _leaseService.Get().Select(l => l.ToBLL());
         }
 
         public Lease Get(int id)
         {
-            return _Service.Get(id).ToBLLDetails();
+            return _leaseService.Get(id).ToBLLDetails();
         }
 
         public int Insert(Lease entity)
         {
-            int LeaseID = _Service.Insert(entity.ToDAL());
+            int LeaseID = _leaseService.Insert(entity.ToDAL());
             foreach (BookLease bookLease in entity.BookLeases)
-                _bookLeaseService.Insert(new DAL.BookLease { LeaseID = LeaseID, BookID = bookLease.BookID });
+            {
+                _bookLeaseService.Insert(
+                    new DAL.BookLease
+                    {
+                        LeaseID = LeaseID,
+                        BookID = bookLease.BookID
+                    }
+                );
+
+                int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
+                _bookLibraryService.LeaseTheBook(bookLease.BookID,LibraryID);
+            }
 
             return LeaseID;
         }
 
         public void Update(int id, Lease entity)
         {
-            _Service.Update(id, entity.ToDAL());
+            _leaseService.Update(id, entity.ToDAL());
+            Lease lease = _leaseService.Get(id).ToBLLDetails();
+            foreach (BookLease bookLease in lease.BookLeases)
+            {
+                int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
+                _bookLibraryService.ReturnTheBook(bookLease.BookID, LibraryID);
+            }
         }
     }
 }

@@ -9,10 +9,17 @@ namespace BLL_Bibliotheque.Services
     {
         private ISaleRepository<DAL.Sale> _saleRepository;
         private IBookSaleRepository<DAL.BookSale> _bookSaleRepository;
-        public SaleService(ISaleRepository<DAL.Sale> saleRepository, IBookSaleRepository<DAL.BookSale> bookSaleRepository)
+        private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryService;
+        private IBookRepository<DAL.Book> _bookService;
+        public SaleService(ISaleRepository<DAL.Sale> saleRepository,
+                           IBookSaleRepository<DAL.BookSale> bookSaleRepository,
+                           IBookLibraryRepository<DAL.BookLibrary> bookLibraryRepository,
+                           IBookRepository<DAL.Book> bookRepository)
         {
             _saleRepository = saleRepository;
             _bookSaleRepository = bookSaleRepository;
+            _bookLibraryService = bookLibraryRepository;
+            _bookService = bookRepository;
         }
         public IEnumerable<Sale> Get()
         {
@@ -27,8 +34,19 @@ namespace BLL_Bibliotheque.Services
         public int Insert(Sale entity)
         {
             int saleID = _saleRepository.Insert(entity.ToDAL());
-            foreach (var bookSale in entity.BookSales) 
-                _bookSaleRepository.Insert(new DAL.BookSale { SaleID = saleID, BookID = bookSale.BookID});
+            foreach (BookSale bookSale in entity.BookSales)
+            {
+                _bookSaleRepository.Insert(
+                    new DAL.BookSale
+                    {
+                        SaleID = saleID,
+                        BookID = bookSale.BookID
+                    }
+                );
+
+                int LibraryID = _bookService.Get(bookSale.BookID).BookLibraries[0].LibraryID;
+                _bookLibraryService.LeaseTheBook(bookSale.BookID, LibraryID);
+            }
 
             return saleID;
         }

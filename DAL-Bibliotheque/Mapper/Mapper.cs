@@ -275,7 +275,7 @@ namespace DAL_Bibliotheque.Mapper
         }
 
         // BookLibrairy
-        private static DAL.BookLibrary ToDAL(this EF.BookLibrary entity)
+        public static DAL.BookLibrary ToDAL(this EF.BookLibrary entity)
         {
             return new DAL.BookLibrary
             {

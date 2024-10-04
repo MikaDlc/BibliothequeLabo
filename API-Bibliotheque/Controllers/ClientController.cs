@@ -62,12 +62,5 @@ namespace API_Bibliotheque.Controllers
             _clientService.Update(id, client.ToBLL());
             return NoContent();
         }
-
-        [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
-        {
-            _clientService.Delete(id);
-            return NoContent();
-        }
     }
 }

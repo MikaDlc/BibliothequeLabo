@@ -62,12 +62,5 @@ namespace API_Bibliotheque.Controllers
             _leaseService.Update(id, lease.ToBLL());
             return NoContent();
         }
-
-        [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
-        {
-            _leaseService.Delete(id);
-            return NoContent();
-        }
     }
 }

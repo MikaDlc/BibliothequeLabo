@@ -13,11 +13,6 @@ namespace DAL_Bibliotheque.Services
         {
             _context = context;
         }
-        public void Delete(int id)
-        {
-            _context.Libraries.Remove(_context.Libraries.First(l => l.LibraryID == id));
-            _context.SaveChanges();
-        }
 
         public IEnumerable<Library> Get()
         {

@@ -179,7 +179,6 @@ namespace BLL_Bibliotheque.Mapper
                 Price = entity.Price
             };
         }
-
         public static DAL.Lease ToDAL(this BLL.Lease entity)
         {
             return new DAL.Lease
@@ -228,7 +227,6 @@ namespace BLL_Bibliotheque.Mapper
         }
 
         // Library
-
         public static BLL.Library ToBLLDetails(this DAL.Library entity)
         {
             return new BLL.Library

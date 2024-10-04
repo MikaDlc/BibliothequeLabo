@@ -12,15 +12,17 @@ namespace DAL_Bibliotheque.Services
         {
             _context = context;
         }
-        public void Delete(int BookID, int SaleID)
-        {
-            _context.BookSales.Remove(_context.BookSales.First(bs => bs.BookID == BookID && bs.SaleID == SaleID));
-            _context.SaveChanges();
-        }
 
         public void Insert(BookSale entity)
         {
             _context.BookSales.Add(entity.ToEF());
+            _context.SaveChanges();
+        }
+
+        public void SaleTheBook(int BookID, int LibraryID)
+        {
+            var bookLibrary = _context.BookLibraries.First(bl => bl.LibraryID == LibraryID && bl.BookID == BookID);
+            bookLibrary.QDispo = --bookLibrary.QDispo;
             _context.SaveChanges();
         }
     }

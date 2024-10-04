@@ -14,11 +14,6 @@ namespace DAL_Bibliotheque.Services
         {
             _context = context;
         }
-        public void Delete(int id)
-        {
-            _context.Authors.Remove(_context.Authors.First(a => a.AuthorID == id));
-            _context.SaveChanges();
-        }
 
         public IEnumerable<Author> Get()
         {

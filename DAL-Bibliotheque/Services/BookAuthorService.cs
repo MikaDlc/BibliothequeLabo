@@ -13,12 +13,6 @@ namespace DAL_Bibliotheque.Services
             _context = context;
         }
 
-        public void Delete(int BookID, int AuthorID)
-        {
-            _context.BookAuthors.Remove(_context.BookAuthors.First(ba => ba.AuthorID == AuthorID && ba.BookID == BookID));
-            _context.SaveChanges();
-        }
-
         public void Insert(BookAuthor entity)
         {
             _context.BookAuthors.Add(entity.ToEF());

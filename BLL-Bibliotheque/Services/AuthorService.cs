@@ -12,10 +12,6 @@ namespace BLL_Bibliotheque.Services
         {
             _Service = Service;
         }
-        public void Delete(int id)
-        {
-            _Service.Delete(id);
-        }
 
         public IEnumerable<Author> Get()
         {

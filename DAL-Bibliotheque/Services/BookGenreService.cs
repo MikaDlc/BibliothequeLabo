@@ -12,11 +12,6 @@ namespace DAL_Bibliotheque.Services
         {
             _context = context;
         }
-        public void Delete(int BookID, string GenreID)
-        {
-            _context.BookGenres.Remove(_context.BookGenres.First(bg => bg.GName == GenreID && bg.BookID == BookID));
-            _context.SaveChanges();
-        }
 
         public void Insert(BookGenre entity)
         {

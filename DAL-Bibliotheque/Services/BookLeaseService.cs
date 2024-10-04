@@ -14,12 +14,6 @@ namespace DAL_Bibliotheque.Services
             _context = context;
         }
 
-        public void Delete(int BookID, int LeaseID)
-        {
-            _context.BookLeases.Remove(_context.BookLeases.First(bl => bl.BookID == BookID && bl.LeaseID == LeaseID));
-            _context.SaveChanges();
-        }
-
         public void Insert(BookLease entity)
         {
             _context.BookLeases.Add(entity.ToEF());

@@ -22,10 +22,6 @@ namespace BLL_Bibliotheque.Services
             _bookGenreService = bookGenreService;
             _bookLibraryService = bookLibraryService;
         }
-        public void Delete(int id)
-        {
-            _bookService.Delete(id);
-        }
 
         public IEnumerable<Book> Get()
         {
@@ -45,8 +41,7 @@ namespace BLL_Bibliotheque.Services
             foreach (BookGenre bookGenre in entity.BookGenres) 
                 _bookGenreService.Insert(new DAL.BookGenre { BookID = BookID, GName = bookGenre.GName });
             foreach (BookLibrary bookLibrary in entity.BookLibraries) 
-                _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID });
-
+                _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID , QDispo = bookLibrary.QDispo});
 
             return BookID;
         }

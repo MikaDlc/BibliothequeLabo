@@ -15,12 +15,6 @@ namespace DAL_Bibliotheque.Services
             _context = context;
         }
 
-        public void Delete(int id)
-        {
-            _context.Books.Remove(_context.Books.First(a => a.BookID == id));
-            _context.SaveChanges();
-        }
-
         public IEnumerable<Book> Get()
         {
             try

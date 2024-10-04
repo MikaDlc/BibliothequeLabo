@@ -56,12 +56,5 @@ namespace API_Bibliotheque.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
-        {
-            _libraryRepository.Delete(id);
-            return NoContent();
-        }
-
     }
 }

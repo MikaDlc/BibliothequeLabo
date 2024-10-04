@@ -13,11 +13,6 @@ namespace DAL_Bibliotheque.Services
         {
             _context = context;
         }
-        public void Delete(int id)
-        {
-            _context.Leases.Remove(_context.Leases.First(l => l.LeaseID == id));
-            _context.SaveChanges();
-        }
 
         public IEnumerable<Lease> Get()
         {
@@ -51,9 +46,20 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                var lease = _context.Leases.First(l => l.LeaseID == id);
-                lease.ReturnDate = entity.ReturnDate;
-                _context.SaveChanges();
+                if (_context.Leases.First(l => l.LeaseID == id).ReturnDate is null)
+                {
+                    var lease = _context.Leases.First(l => l.LeaseID == id);
+                    lease.ReturnDate = entity.ReturnDate;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    throw new DbUpdateException();
+                }
+            }
+            catch (DbUpdateException)
+            {
+                throw new DbUpdateException("Lease already returned");
             }
             catch (Exception)
             {

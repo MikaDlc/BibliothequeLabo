@@ -12,10 +12,6 @@ namespace BLL_Bibliotheque.Services
         {
             _libraryRepository = libraryRepository;
         }
-        public void Delete(int id)
-        {
-            _libraryRepository.Delete(id);
-        }
 
         public IEnumerable<Library> Get()
         {
