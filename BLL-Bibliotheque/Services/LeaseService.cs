@@ -1,6 +1,7 @@
 ﻿using BLL_Bibliotheque.Entities;
 using BLL_Bibliotheque.Mapper;
 using Commun_Bibliotheque.Repositories;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using DAL = DAL_Bibliotheque.Entities;
 
 namespace BLL_Bibliotheque.Services
@@ -34,6 +35,7 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Lease entity)
         {
+            entity.LeaseDate = DateTime.Now;
             int LeaseID = _leaseService.Insert(entity.ToDAL());
             foreach (BookLease bookLease in entity.BookLeases)
             {

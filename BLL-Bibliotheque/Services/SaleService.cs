@@ -33,6 +33,7 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Sale entity)
         {
+            entity.DateSale = DateTime.Now;
             int saleID = _saleRepository.Insert(entity.ToDAL());
             foreach (BookSale bookSale in entity.BookSales)
             {

@@ -1,6 +1,5 @@
 ﻿using API_Bibliotheque.Models.Get;
 using API_Bibliotheque.Models.Post;
-using API_Bibliotheque.Models.Put;
 using BLL = BLL_Bibliotheque.Entities;
 namespace API_Bibliotheque.Mapper
 {
@@ -109,18 +108,9 @@ namespace API_Bibliotheque.Mapper
         {
             return new BLL.Lease
             {
-                LeaseDate = DateTime.Now,
                 ClientID = lease.ClientID,
                 Price = lease.Price,
                 BookLeases = lease.Books.Select(b => new BLL.BookLease { BookID = b }).ToList()
-            };
-        }
-
-        internal static BLL.Lease ToBLL(this LeasePut lease)
-        {
-            return new BLL.Lease
-            {
-                ReturnDate = lease.ReturnDate
             };
         }
 
@@ -141,7 +131,6 @@ namespace API_Bibliotheque.Mapper
         {
             return new BLL.Sale
             {
-                DateSale = DateTime.Now,
                 ClientID = sale.ClientID,
                 Price = sale.Price,
                 BookSales = sale.Books.Select(b => new BLL.BookSale { BookID = b }).ToList()
