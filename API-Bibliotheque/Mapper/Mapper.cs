@@ -109,7 +109,7 @@ namespace API_Bibliotheque.Mapper
         {
             return new BLL.Lease
             {
-                LeaseDate = lease.LeaseDate,
+                LeaseDate = DateTime.Now,
                 ClientID = lease.ClientID,
                 Price = lease.Price,
                 BookLeases = lease.Books.Select(b => new BLL.BookLease { BookID = b }).ToList()
@@ -141,7 +141,7 @@ namespace API_Bibliotheque.Mapper
         {
             return new BLL.Sale
             {
-                DateSale = sale.DateSale,
+                DateSale = DateTime.Now,
                 ClientID = sale.ClientID,
                 Price = sale.Price,
                 BookSales = sale.Books.Select(b => new BLL.BookSale { BookID = b }).ToList()
