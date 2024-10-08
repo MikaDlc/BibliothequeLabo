@@ -27,10 +27,5 @@ namespace BLL_Bibliotheque.Services
         {
             return _Service.Insert(entity.ToDAL());
         }
-
-        public void Update(int id, Author entity)
-        {
-            _Service.Update(id, entity.ToDAL());
-        }
     }
 }

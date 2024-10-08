@@ -10,6 +10,5 @@ namespace Commun_Bibliotheque.Repositories
         public IEnumerable<TAutor> Get();
         public TAutor Get(int id);
         public int Insert(TAutor entity);
-        public void Update(int id, TAutor entity);
     }
 }

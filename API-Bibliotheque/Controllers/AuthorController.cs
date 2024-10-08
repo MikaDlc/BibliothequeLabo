@@ -54,16 +54,5 @@ namespace API_Bibliotheque.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPut("{id:int}")]
-        public IActionResult Put([FromRoute] int id, [FromBody] AuthorPost author)
-        {
-            if (author == null)
-            {
-                return BadRequest();
-            }
-            _authorService.Update(id, author.ToBLL());
-            return NoContent();
-        }
     }
 }
