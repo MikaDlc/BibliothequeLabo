@@ -33,23 +33,30 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Sale entity)
         {
-            entity.DateSale = DateTime.Now;
-            int saleID = _saleRepository.Insert(entity.ToDAL());
-            foreach (Book bookSale in entity.Books)
+            try
             {
-                _bookSaleRepository.Insert(
-                    new DAL.BookSale
-                    {
-                        SaleID = saleID,
-                        BookID = bookSale.BookID
-                    }
-                );
+                entity.DateSale = DateTime.Now;
+                int saleID = _saleRepository.Insert(entity.ToDAL());
+                foreach (Book bookSale in entity.Books)
+                {
+                    _bookSaleRepository.Insert(
+                        new DAL.BookSale
+                        {
+                            SaleID = saleID,
+                            BookID = bookSale.BookID
+                        }
+                    );
 
-                int LibraryID = _bookService.Get(bookSale.BookID).BookLibraries[0].LibraryID;
-                _bookLibraryService.LeaseTheBook(bookSale.BookID, LibraryID);
+                    int LibraryID = _bookService.Get(bookSale.BookID).BookLibraries[0].LibraryID;
+                    _bookLibraryService.LeaseTheBook(bookSale.BookID, LibraryID);
+                }
+
+                return saleID;
             }
-
-            return saleID;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

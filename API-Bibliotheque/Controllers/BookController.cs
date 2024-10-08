@@ -59,16 +59,5 @@ namespace API_Bibliotheque.Controllers
                 return NotFound(ex.Message);
             }
         }
-
-        [HttpPut("{id:int}")]
-        public IActionResult Put([FromRoute] int id, [FromBody] BookPost book)
-        {
-            if (book == null)
-            {
-                return BadRequest();
-            }
-            _bookService.Update(id, book.ToBLL());
-            return NoContent();
-        }
     }
 }

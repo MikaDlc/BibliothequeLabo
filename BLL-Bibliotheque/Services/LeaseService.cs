@@ -35,22 +35,29 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Lease entity)
         {
-            entity.LeaseDate = DateTime.Now;
-            int LeaseID = _leaseService.Insert(entity.ToDAL());
-            foreach (Book bookLease in entity.Books)
+            try
             {
-                _bookLeaseService.Insert(
-                    new DAL.BookLease
-                    {
-                        LeaseID = LeaseID,
-                        BookID = bookLease.BookID
-                    }
-                );
+                entity.LeaseDate = DateTime.Now;
+                int LeaseID = _leaseService.Insert(entity.ToDAL());
+                foreach (Book bookLease in entity.Books)
+                {
+                    _bookLeaseService.Insert(
+                        new DAL.BookLease
+                        {
+                            LeaseID = LeaseID,
+                            BookID = bookLease.BookID
+                        }
+                    );
 
-                int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
-                _bookLibraryService.LeaseTheBook(bookLease.BookID, LibraryID);
+                    int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
+                    _bookLibraryService.LeaseTheBook(bookLease.BookID, LibraryID);
+                }
+                return LeaseID;
             }
-            return LeaseID;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void Update(int id, Lease entity)

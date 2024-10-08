@@ -58,22 +58,5 @@ namespace DAL_Bibliotheque.Services
                 throw new Exception("Insert failed");
             }
         }
-
-        public void Update(int id, Book entity)
-        {
-            try
-            {
-                var book = _context.Books.First(a => a.BookID == id);
-                book.Title = entity.Title;
-                book.Edition = entity.Edition;
-                book.EditionDate = entity.EditionDate;
-                book.Price = entity.Price;
-                _context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Update failed");
-            }
-        }
     }
 }

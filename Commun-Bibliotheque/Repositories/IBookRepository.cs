@@ -8,6 +8,5 @@ namespace Commun_Bibliotheque.Repositories
         public IEnumerable<Tbook> Get();
         public Tbook Get(int id);
         public int Insert(Tbook entity);
-        public void Update(int id, Tbook entity);
     }
 }

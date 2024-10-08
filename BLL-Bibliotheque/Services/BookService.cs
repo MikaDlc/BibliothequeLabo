@@ -1,6 +1,7 @@
 ﻿using BLL_Bibliotheque.Entities;
 using BLL_Bibliotheque.Mapper;
 using Commun_Bibliotheque.Repositories;
+using EF_Bibliotheque;
 using DAL = DAL_Bibliotheque.Entities;
 
 namespace BLL_Bibliotheque.Services
@@ -35,19 +36,22 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Book entity)
         {
-            int BookID = _bookService.Insert(entity.ToDAL());
-            foreach (LibraryStock bookLibrary in entity.Libraries)
-                _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID, QDispo = bookLibrary.Stock });
-            foreach (Author bookAuthor in entity.Authors)
-                _bookAuthorService.Insert(new DAL.BookAuthor { BookID = BookID, AuthorID = bookAuthor.AuthorID });
-            foreach (Genre bookGenre in entity.Genres)
-                _bookGenreService.Insert(new DAL.BookGenre { BookID = BookID, GName = bookGenre.GName });
-            return BookID;
-        }
-
-        public void Update(int id, Book entity)
-        {
-            _bookService.Update(id, entity.ToDAL());
+            int BookID = 0;
+            try
+            {
+                BookID = _bookService.Insert(entity.ToDAL());
+                foreach (LibraryStock bookLibrary in entity.Libraries)
+                    _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID, QDispo = bookLibrary.Stock });
+                foreach (Author bookAuthor in entity.Authors)
+                    _bookAuthorService.Insert(new DAL.BookAuthor { BookID = BookID, AuthorID = bookAuthor.AuthorID });
+                foreach (Genre bookGenre in entity.Genres)
+                    _bookGenreService.Insert(new DAL.BookGenre { BookID = BookID, GName = bookGenre.GName });
+                return BookID;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
