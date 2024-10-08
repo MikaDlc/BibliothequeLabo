@@ -15,10 +15,17 @@ namespace API_Bibliotheque.Models.Post
         public int EditionDate { get; set; }
         [Required]
         public double Price { get; set; }
+        [Required]
+        [Length(1, 100)]
         public List<int> Libraries { get; set; }
+        [Required]
+        [Length(1, 100)]
         public List<int> LibraryQuantity { get; set; }
+        [Required]
+        [Length(1, 100)]
         public List<int> Authors { get; set; }
+        [Required]
+        [Length(1, 100)]
         public List<string> Genres { get; set; }
-
     }
 }

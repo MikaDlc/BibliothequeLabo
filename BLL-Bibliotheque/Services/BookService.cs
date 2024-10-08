@@ -12,9 +12,9 @@ namespace BLL_Bibliotheque.Services
         private IBookGenreRepository<DAL.BookGenre> _bookGenreService;
         private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryService;
 
-        public BookService(IBookRepository<DAL.Book> Service, 
-                           IBookAuthorRepository<DAL.BookAuthor> bookAuthorService, 
-                           IBookGenreRepository<DAL.BookGenre> bookGenreService, 
+        public BookService(IBookRepository<DAL.Book> Service,
+                           IBookAuthorRepository<DAL.BookAuthor> bookAuthorService,
+                           IBookGenreRepository<DAL.BookGenre> bookGenreService,
                            IBookLibraryRepository<DAL.BookLibrary> bookLibraryService)
         {
             _bookService = Service;
@@ -36,13 +36,12 @@ namespace BLL_Bibliotheque.Services
         public int Insert(Book entity)
         {
             int BookID = _bookService.Insert(entity.ToDAL());
-            foreach (Author bookAuthor in entity.Authors) 
+            foreach (LibraryStock bookLibrary in entity.Libraries)
+                _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID, QDispo = bookLibrary.Stock });
+            foreach (Author bookAuthor in entity.Authors)
                 _bookAuthorService.Insert(new DAL.BookAuthor { BookID = BookID, AuthorID = bookAuthor.AuthorID });
-            foreach (Genre bookGenre in entity.Genres) 
+            foreach (Genre bookGenre in entity.Genres)
                 _bookGenreService.Insert(new DAL.BookGenre { BookID = BookID, GName = bookGenre.GName });
-            foreach (LibraryStock bookLibrary in entity.Libraries) 
-                _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID , QDispo = bookLibrary.Stock});
-
             return BookID;
         }
 

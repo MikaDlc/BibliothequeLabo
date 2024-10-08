@@ -2,6 +2,7 @@
 using DAL_Bibliotheque.Entities;
 using DAL_Bibliotheque.Mapper;
 using EF_Bibliotheque;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL_Bibliotheque.Services
 {
@@ -15,8 +16,19 @@ namespace DAL_Bibliotheque.Services
 
         public void Insert(BookSale entity)
         {
-            _context.BookSales.Add(entity.ToEF());
-            _context.SaveChanges();
+            try
+            {
+                _context.BookSales.Add(entity.ToEF());
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw new DbUpdateException("Invalid Book");
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Invalid Book");
+            }
         }
 
         public void SaleTheBook(int BookID, int LibraryID)

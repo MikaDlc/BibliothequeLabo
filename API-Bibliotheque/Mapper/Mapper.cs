@@ -9,22 +9,29 @@ namespace API_Bibliotheque.Mapper
         // Book
         internal static BLL.Book ToBLL(this BookPost book)
         {
-            List<BLL.LibraryStock> bookLibraries = new List<BLL.LibraryStock>();
-            for (int i = 0; i < book.Libraries.Count; i++)
+            try
             {
-                bookLibraries.Add(new BLL.LibraryStock { LibraryID = book.Libraries[i], Stock = book.LibraryQuantity[i] });
-            }
+                List<BLL.LibraryStock> bookLibraries = new List<BLL.LibraryStock>();
+                for (int i = 0; i < book.Libraries.Count; i++)
+                {
+                    bookLibraries.Add(new BLL.LibraryStock { LibraryID = book.Libraries[i], Stock = book.LibraryQuantity[i] });
+                }
 
-            return new BLL.Book
+                return new BLL.Book
+                {
+                    Title = book.Title,
+                    Edition = book.Edition,
+                    EditionDate = book.EditionDate,
+                    Price = book.Price,
+                    Authors = book.Authors.Select(a => new BLL.Author { AuthorID = a }).ToList(),
+                    Genres = book.Genres.Select(g => new BLL.Genre { GName = g }).ToList(),
+                    Libraries = bookLibraries,
+                };
+            }
+            catch (ArgumentOutOfRangeException)
             {
-                Title = book.Title,
-                Edition = book.Edition,
-                EditionDate = book.EditionDate,
-                Price = book.Price,
-                Authors = book.Authors.Select(a => new BLL.Author { AuthorID = a }).ToList(),
-                Genres = book.Genres.Select(g => new BLL.Genre { GName = g }).ToList(),
-                Libraries = bookLibraries,
-            };
+                throw new ArgumentException("The number of libraries and the number of library quantities must be the same.");
+            }
         }
 
         internal static BookGet ToAPI(this BLL.Book book)

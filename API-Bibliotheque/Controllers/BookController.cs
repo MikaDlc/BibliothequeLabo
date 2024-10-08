@@ -49,7 +49,6 @@ namespace API_Bibliotheque.Controllers
 
                 int bookId = _bookService.Insert(book.ToBLL());
 
-
                 if (bookId == -1)
                     return BadRequest("Book already exists");
                 else
@@ -57,7 +56,7 @@ namespace API_Bibliotheque.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 

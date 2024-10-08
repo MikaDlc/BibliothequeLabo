@@ -12,8 +12,8 @@ namespace BLL_Bibliotheque.Services
         private IBookLeaseRepository<DAL.BookLease> _bookLeaseService;
         private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryService;
         private IBookRepository<DAL.Book> _bookService;
-        public LeaseService(ILeaseRepository<DAL.Lease> Service, 
-                            IBookLeaseRepository<DAL.BookLease> bookLeaseService, 
+        public LeaseService(ILeaseRepository<DAL.Lease> Service,
+                            IBookLeaseRepository<DAL.BookLease> bookLeaseService,
                             IBookLibraryRepository<DAL.BookLibrary> bookLibraryService,
                             IBookRepository<DAL.Book> bookService)
         {
@@ -48,9 +48,8 @@ namespace BLL_Bibliotheque.Services
                 );
 
                 int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
-                _bookLibraryService.LeaseTheBook(bookLease.BookID,LibraryID);
+                _bookLibraryService.LeaseTheBook(bookLease.BookID, LibraryID);
             }
-
             return LeaseID;
         }
 

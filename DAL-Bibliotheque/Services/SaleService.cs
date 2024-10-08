@@ -41,9 +41,9 @@ namespace DAL_Bibliotheque.Services
                 _context.SaveChanges();
                 return sale.SaleID;
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
-                throw new Exception("Insert failed");
+                throw new DbUpdateException("Invalid Client");
             }
         }
     }

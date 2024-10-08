@@ -35,7 +35,6 @@ namespace DAL_Bibliotheque.Services
 
         public int Insert(Lease entity)
         {
-            // TODO Gerer l'ClientID non présent
             try
             {
                 var lease = entity.ToEF();
@@ -43,9 +42,9 @@ namespace DAL_Bibliotheque.Services
                 _context.SaveChanges();
                 return lease.LeaseID;
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
-                throw new Exception("Insert failed");
+                throw new DbUpdateException("Invalid Client");
             }
         }
 
