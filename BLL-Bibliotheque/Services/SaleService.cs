@@ -21,6 +21,12 @@ namespace BLL_Bibliotheque.Services
             _bookLibraryService = bookLibraryRepository;
             _bookService = bookRepository;
         }
+
+        public void Delete(int id)
+        {
+            _saleRepository.Delete(id);
+        }
+
         public IEnumerable<Sale> Get()
         {
             return _saleRepository.Get().Select(s => s.ToBLL());
@@ -33,10 +39,11 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Sale entity)
         {
+            int saleID = 0;
             try
             {
                 entity.DateSale = DateTime.Now;
-                int saleID = _saleRepository.Insert(entity.ToDAL());
+                saleID = _saleRepository.Insert(entity.ToDAL());
                 foreach (Book bookSale in entity.Books)
                 {
                     _bookSaleRepository.Insert(
@@ -55,6 +62,7 @@ namespace BLL_Bibliotheque.Services
             }
             catch (Exception ex)
             {
+                Delete(saleID);
                 throw new Exception(ex.Message);
             }
         }

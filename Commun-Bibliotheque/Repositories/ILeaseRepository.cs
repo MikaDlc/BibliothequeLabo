@@ -9,5 +9,6 @@ namespace Commun_Bibliotheque.Repositories
         public TLease Get(int id);
         public int Insert(TLease entity);
         public void Update(int id, TLease entity);
+        public void Delete(int id);
     }
 }

@@ -8,5 +8,6 @@ namespace Commun_Bibliotheque.Repositories
         public IEnumerable<TSale> Get();
         public TSale Get(int id);
         public int Insert(TSale entity);
+        public void Delete(int id);
     }
 }

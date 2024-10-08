@@ -14,6 +14,16 @@ namespace DAL_Bibliotheque.Services
             _context = context;
         }
 
+        public void Delete(int id)
+        {
+            var lease = _context.Leases.Find(id);
+            if (lease != null)
+            {
+                _context.Leases.Remove(lease);
+                _context.SaveChanges();
+            }
+        }
+
         public IEnumerable<Lease> Get()
         {
             return _context.Leases.Select(l => l.ToDAL());

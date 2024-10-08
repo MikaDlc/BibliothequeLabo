@@ -52,14 +52,5 @@ namespace API_Bibliotheque.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public IActionResult Put([FromRoute] int id, [FromBody] LibraryPost library)
-        {
-            if (library == null)
-                return BadRequest();
-            _libraryRepository.Update(id, library.ToBLL());
-            return NoContent();
-        }
-
     }
 }

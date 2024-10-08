@@ -15,6 +15,16 @@ namespace DAL_Bibliotheque.Services
             _context = context;
         }
 
+        public void Delete(int id)
+        {
+            var book = _context.Books.Find(id);
+            if (book != null)
+            {
+                _context.Books.Remove(book);
+                _context.SaveChanges();
+            }
+        }
+
         public IEnumerable<Book> Get()
         {
             try

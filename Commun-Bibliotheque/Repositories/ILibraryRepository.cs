@@ -1,6 +1,5 @@
 ﻿using Commun_Bibliotheque.Entities;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace Commun_Bibliotheque.Repositories
 {
@@ -9,6 +8,5 @@ namespace Commun_Bibliotheque.Repositories
         public IEnumerable<TLibrary> Get();
         public TLibrary Get(int id);
         public int Insert(TLibrary entity);
-        public void Update(int id, TLibrary entity);
     }
 }

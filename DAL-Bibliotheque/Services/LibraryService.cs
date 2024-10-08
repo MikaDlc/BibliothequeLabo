@@ -46,23 +46,5 @@ namespace DAL_Bibliotheque.Services
                 throw new Exception("Insert failed");
             }
         }
-
-        public void Update(int id, Library entity)
-        {
-            try
-            {
-                var library = _context.Libraries.Find(id);
-                library.Street = entity.Street;
-                library.NumberH = entity.NumberH;
-                library.PostalCode = entity.PostalCode;
-                library.City = entity.City;
-                library.Country = entity.Country;
-                _context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Update failed");
-            }
-        }
     }
 }

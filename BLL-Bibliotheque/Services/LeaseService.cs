@@ -1,7 +1,6 @@
 ﻿using BLL_Bibliotheque.Entities;
 using BLL_Bibliotheque.Mapper;
 using Commun_Bibliotheque.Repositories;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using DAL = DAL_Bibliotheque.Entities;
 
 namespace BLL_Bibliotheque.Services
@@ -23,6 +22,11 @@ namespace BLL_Bibliotheque.Services
             _bookService = bookService;
         }
 
+        public void Delete(int id)
+        {
+            _leaseService.Delete(id);
+        }
+
         public IEnumerable<Lease> Get()
         {
             return _leaseService.Get().Select(l => l.ToBLL());
@@ -35,10 +39,11 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Lease entity)
         {
+            int LeaseID = 0;
             try
             {
                 entity.LeaseDate = DateTime.Now;
-                int LeaseID = _leaseService.Insert(entity.ToDAL());
+                LeaseID = _leaseService.Insert(entity.ToDAL());
                 foreach (Book bookLease in entity.Books)
                 {
                     _bookLeaseService.Insert(
@@ -56,6 +61,7 @@ namespace BLL_Bibliotheque.Services
             }
             catch (Exception ex)
             {
+                Delete(LeaseID);
                 throw new Exception(ex.Message);
             }
         }

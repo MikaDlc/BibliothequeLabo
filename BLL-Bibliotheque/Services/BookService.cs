@@ -24,6 +24,11 @@ namespace BLL_Bibliotheque.Services
             _bookLibraryService = bookLibraryService;
         }
 
+        public void Delete(int id)
+        {
+            _bookService.Delete(id);
+        }
+
         public IEnumerable<Book> Get()
         {
             return _bookService.Get().Select(b => b.ToBLL());
@@ -50,6 +55,13 @@ namespace BLL_Bibliotheque.Services
             }
             catch (Exception ex)
             {
+                Delete(BookID); // Rollback
+                foreach (LibraryStock bookLibrary in entity.Libraries)
+                    _bookLibraryService.Delete(BookID, bookLibrary.LibraryID); // Rollback
+                foreach (Author bookAuthor in entity.Authors)
+                    _bookAuthorService.Delete(BookID, bookAuthor.AuthorID); // Rollback
+                foreach (Genre bookGenre in entity.Genres)
+                    _bookGenreService.Delete(BookID, bookGenre.GName); // Rollback
                 throw new Exception(ex.Message);
             }
         }
