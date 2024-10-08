@@ -17,6 +17,8 @@ namespace BLL_Bibliotheque.Mapper
                 BookAuthors = entity.BookAuthors.Select(ba => ba.ToBLL()).ToList(),
                 BookGenres = entity.BookGenres.Select(bg => bg.ToBLL()).ToList(),
                 BookLibraries = entity.BookLibraries.Select(bl => bl.ToBLL()).ToList(),
+                BookLeases = entity.BookLeases.Select(bl => bl.ToBLL()).ToList(),
+                BookSales = entity.BookSales.Select(bs => bs.ToBLL()).ToList()
             };
         }
 

@@ -1,5 +1,4 @@
-﻿using Commun_Bibliotheque.Entities;
-using Commun_Bibliotheque.Repositories;
+﻿using Commun_Bibliotheque.Repositories;
 using DAL_Bibliotheque.Entities;
 using DAL_Bibliotheque.Mapper;
 using EF_Bibliotheque;

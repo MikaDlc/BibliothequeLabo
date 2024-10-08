@@ -41,7 +41,9 @@ namespace DAL_Bibliotheque.Mapper
                 Price = entity.Price,
                 BookLibraries = entity.BookLibraries.Select(bl => bl.ToDAL()).ToList(),
                 BookAuthors = entity.BookAuthors.Select(ba => ba.ToDAL()).ToList(),
-                BookGenres = entity.BookGenres.Select(bg => bg.ToDAL()).ToList()
+                BookGenres = entity.BookGenres.Select(bg => bg.ToDAL()).ToList(),
+                BookLeases = entity.BookLeases.Select(bl => bl.ToDAL()).ToList(),
+                BookSales = entity.BookSales.Select(bs => bs.ToDAL()).ToList()
             };
         }
 

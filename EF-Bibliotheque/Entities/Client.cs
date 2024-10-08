@@ -13,8 +13,8 @@
         public string Email { get; set; }
         public string Passwd { get; set; }
         public string Salage { get; set; }
-        public List<BookSale> Sales { get; set; }
-        public List<BookLease> Leases { get; set; }
+        public List<Sale> Sales { get; set; }
+        public List<Lease> Leases { get; set; }
 
     }
 }

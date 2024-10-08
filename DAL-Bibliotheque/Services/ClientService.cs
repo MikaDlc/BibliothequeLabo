@@ -30,8 +30,8 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                return _context.Clients.Include(c => c.Leases).ThenInclude(bl => bl.Book)
-                                       .Include(c => c.Sales).ThenInclude(bs => bs.Book)
+                return _context.Clients.Include(c => c.Leases)
+                                       .Include(c => c.Sales)
                                        .First(a => a.ClientID == id).ToDALDetails();
             }
             catch (Exception)
