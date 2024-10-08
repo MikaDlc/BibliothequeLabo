@@ -25,7 +25,10 @@ namespace API_Bibliotheque.Controllers
         [HttpGet("/{id:int}")]
         public IActionResult Get(int id)
         {
-            return Ok(_saleRepository.Get(id));
+            var sale = _saleRepository.Get(id);
+            if (sale == null)
+                return NotFound();
+            return Ok(sale.ToAPIDetails());
         }
 
         [HttpPost]

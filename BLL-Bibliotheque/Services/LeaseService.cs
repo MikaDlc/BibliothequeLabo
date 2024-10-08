@@ -37,7 +37,7 @@ namespace BLL_Bibliotheque.Services
         {
             entity.LeaseDate = DateTime.Now;
             int LeaseID = _leaseService.Insert(entity.ToDAL());
-            foreach (BookLease bookLease in entity.BookLeases)
+            foreach (Book bookLease in entity.Books)
             {
                 _bookLeaseService.Insert(
                     new DAL.BookLease
@@ -58,7 +58,7 @@ namespace BLL_Bibliotheque.Services
         {
             _leaseService.Update(id, entity.ToDAL());
             Lease lease = _leaseService.Get(id).ToBLLDetails();
-            foreach (BookLease bookLease in lease.BookLeases)
+            foreach (Book bookLease in lease.Books)
             {
                 int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
                 _bookLibraryService.ReturnTheBook(bookLease.BookID, LibraryID);

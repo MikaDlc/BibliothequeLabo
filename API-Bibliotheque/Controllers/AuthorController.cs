@@ -30,7 +30,7 @@ namespace API_Bibliotheque.Controllers
             {
                 return NotFound();
             }
-            return Ok(author);
+            return Ok(author.ToAPIDetails());
         }
 
         [HttpPost]

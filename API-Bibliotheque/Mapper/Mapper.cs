@@ -1,4 +1,5 @@
 ﻿using API_Bibliotheque.Models.Get;
+using API_Bibliotheque.Models.GetDetails;
 using API_Bibliotheque.Models.Post;
 using BLL = BLL_Bibliotheque.Entities;
 namespace API_Bibliotheque.Mapper
@@ -7,11 +8,11 @@ namespace API_Bibliotheque.Mapper
     {
         // Book
         internal static BLL.Book ToBLL(this BookPost book)
-        { 
-            List<BLL.BookLibrary> bookLibraries = new List<BLL.BookLibrary>();
+        {
+            List<BLL.LibraryStock> bookLibraries = new List<BLL.LibraryStock>();
             for (int i = 0; i < book.Libraries.Count; i++)
             {
-                bookLibraries.Add(new BLL.BookLibrary { LibraryID = book.Libraries[i], QDispo = book.LibraryQuantity[i] });
+                bookLibraries.Add(new BLL.LibraryStock { LibraryID = book.Libraries[i], Stock = book.LibraryQuantity[i] });
             }
 
             return new BLL.Book
@@ -20,9 +21,9 @@ namespace API_Bibliotheque.Mapper
                 Edition = book.Edition,
                 EditionDate = book.EditionDate,
                 Price = book.Price,
-                BookAuthors = book.Authors.Select(a => new BLL.BookAuthor { AuthorID = a }).ToList(),
-                BookGenres = book.Genres.Select(g => new BLL.BookGenre { GName = g }).ToList(),
-                BookLibraries = bookLibraries,
+                Authors = book.Authors.Select(a => new BLL.Author { AuthorID = a }).ToList(),
+                Genres = book.Genres.Select(g => new BLL.Genre { GName = g }).ToList(),
+                Libraries = bookLibraries,
             };
         }
 
@@ -35,6 +36,23 @@ namespace API_Bibliotheque.Mapper
                 Edition = book.Edition,
                 EditionDate = book.EditionDate,
                 Price = book.Price,
+            };
+        }
+
+        internal static BookDetails ToAPIDetails(this BLL.Book book)
+        {
+            return new BookDetails
+            {
+                BookId = book.BookID,
+                Title = book.Title,
+                Edition = book.Edition,
+                EditionDate = book.EditionDate,
+                Price = book.Price,
+                Authors = book.Authors.Select(a => a.ToAPI()).ToList(),
+                Genres = book.Genres.Select(g => g.ToAPI()).ToList(),
+                Libraries = book.Libraries.Select(l => l.ToAPI()).ToList(),
+                Sales = book.Sales.Select(s => s.ToAPI()).ToList(),
+                Leases = book.Leases.Select(l => l.ToAPI()).ToList()
             };
         }
 
@@ -55,6 +73,17 @@ namespace API_Bibliotheque.Mapper
                 AuthorId = author.AuthorID,
                 FirstName = author.FirstName,
                 Name = author.Name,
+            };
+        }
+
+        internal static AuthorDetails ToAPIDetails(this BLL.Author author)
+        {
+            return new AuthorDetails
+            {
+                AuthorId = author.AuthorID,
+                FirstName = author.FirstName,
+                Name = author.Name,
+                Books = author.Books.Select(b => b.ToAPI()).ToList()
             };
         }
 
@@ -86,6 +115,24 @@ namespace API_Bibliotheque.Mapper
             };
         }
 
+        internal static ClientDetails ToAPIDetails(this BLL.Client client)
+        {
+            return new ClientDetails
+            {
+                ClientId = client.ClientID,
+                FirsName = client.FirstName,
+                Name = client.Name,
+                Email = client.Email,
+                City = client.City,
+                PostalCode = client.PostalCode,
+                Street = client.Street,
+                Country = client.Country,
+                NumberH = client.NumberH,
+                Sales = client.Sales.Select(s => s.ToAPI()).ToList(),
+                Leases = client.Leases.Select(l => l.ToAPI()).ToList()
+            };
+        }
+
         // Genre
         internal static BLL.Genre ToBLL(this GenrePost genre)
         {
@@ -103,6 +150,15 @@ namespace API_Bibliotheque.Mapper
             };
         }
 
+        internal static GenreDetails ToAPIDetails(this BLL.Genre genre)
+        {
+            return new GenreDetails
+            {
+                GName = genre.GName,
+                Books = genre.Books.Select(b => b.ToAPI()).ToList()
+            };
+        }
+
         // Lease
         internal static BLL.Lease ToBLL(this LeasePost lease)
         {
@@ -110,7 +166,7 @@ namespace API_Bibliotheque.Mapper
             {
                 ClientID = lease.ClientID,
                 Price = lease.Price,
-                BookLeases = lease.Books.Select(b => new BLL.BookLease { BookID = b }).ToList()
+                Books = lease.Books.Select(b => new BLL.Book { BookID = b }).ToList()
             };
         }
 
@@ -126,6 +182,19 @@ namespace API_Bibliotheque.Mapper
             };
         }
 
+        internal static LeaseDetails ToAPIDetails(this BLL.Lease lease)
+        {
+            return new LeaseDetails
+            {
+                LeaseId = lease.LeaseID,
+                LeaseDate = lease.LeaseDate,
+                ReturnDate = lease.ReturnDate,
+                Client = lease.Client.ToAPI(),
+                Price = lease.Price,
+                Books = lease.Books.Select(b => b.ToAPI()).ToList()
+            };
+        }
+
         // Sale
         internal static BLL.Sale ToBLL(this SalePost sale)
         {
@@ -133,7 +202,7 @@ namespace API_Bibliotheque.Mapper
             {
                 ClientID = sale.ClientID,
                 Price = sale.Price,
-                BookSales = sale.Books.Select(b => new BLL.BookSale { BookID = b }).ToList()
+                Books = sale.Books.Select(b => new BLL.Book { BookID = b }).ToList()
             };
         }
 
@@ -145,6 +214,18 @@ namespace API_Bibliotheque.Mapper
                 DateSale = sale.DateSale,
                 ClientID = sale.ClientID,
                 Price = sale.Price
+            };
+        }
+
+        internal static SaleDetails ToAPIDetails(this BLL.Sale sale)
+        {
+            return new SaleDetails
+            {
+                SaleID = sale.SaleID,
+                DateSale = sale.DateSale,
+                Client = sale.Client.ToAPI(),
+                Price = sale.Price,
+                Books = sale.Books.Select(b => b.ToAPI()).ToList()
             };
         }
 
@@ -171,6 +252,22 @@ namespace API_Bibliotheque.Mapper
                 Street = library.Street,
                 Country = library.Country,
                 NumberH = library.NumberH
+            };
+        }
+
+        // LibraryStock
+
+        internal static LibraryStockDetails ToAPI(this BLL.LibraryStock libraryStock)
+        {
+            return new LibraryStockDetails
+            {
+                LibraryID = libraryStock.LibraryID,
+                City = libraryStock.City,
+                PostalCode = libraryStock.PostalCode,
+                Street = libraryStock.Street,
+                Country = libraryStock.Country,
+                NumberH = libraryStock.NumberH,
+                Stock = libraryStock.Stock
             };
         }
     }

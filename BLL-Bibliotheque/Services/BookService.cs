@@ -36,12 +36,12 @@ namespace BLL_Bibliotheque.Services
         public int Insert(Book entity)
         {
             int BookID = _bookService.Insert(entity.ToDAL());
-            foreach (BookAuthor bookAuthor in entity.BookAuthors) 
+            foreach (Author bookAuthor in entity.Authors) 
                 _bookAuthorService.Insert(new DAL.BookAuthor { BookID = BookID, AuthorID = bookAuthor.AuthorID });
-            foreach (BookGenre bookGenre in entity.BookGenres) 
+            foreach (Genre bookGenre in entity.Genres) 
                 _bookGenreService.Insert(new DAL.BookGenre { BookID = BookID, GName = bookGenre.GName });
-            foreach (BookLibrary bookLibrary in entity.BookLibraries) 
-                _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID , QDispo = bookLibrary.QDispo});
+            foreach (LibraryStock bookLibrary in entity.Libraries) 
+                _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID , QDispo = bookLibrary.Stock});
 
             return BookID;
         }

@@ -10,6 +10,6 @@ namespace BLL_Bibliotheque.Entities
         public double? Price { get; set; }
         public int ClientID { get; set; }
         public Client Client { get; set; }
-        public List<BookLease> BookLeases { get; set; }
+        public List<Book> Books { get; set; }
     }
 }

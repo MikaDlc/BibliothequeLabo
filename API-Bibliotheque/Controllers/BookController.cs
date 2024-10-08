@@ -31,7 +31,7 @@ namespace API_Bibliotheque.Controllers
             {
                 return BadRequest("Book not exist");
             }
-            return Ok(book);
+            return Ok(book.ToAPIDetails());
         }
 
         [HttpPost]

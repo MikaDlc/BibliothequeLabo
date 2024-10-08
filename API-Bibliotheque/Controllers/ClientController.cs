@@ -31,7 +31,7 @@ namespace API_Bibliotheque.Controllers
             {
                 return NotFound();
             }
-            return Ok(client);
+            return Ok(client.ToAPIDetails());
         }
 
         [HttpPost]

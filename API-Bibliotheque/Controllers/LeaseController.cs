@@ -30,7 +30,7 @@ namespace API_Bibliotheque.Controllers
             {
                 return NotFound();
             }
-            return Ok(lease);
+            return Ok(lease.ToAPIDetails());
         }
 
         [HttpPost]
@@ -54,7 +54,7 @@ namespace API_Bibliotheque.Controllers
         [HttpPut("{id:int}")]
         public IActionResult Put([FromRoute] int id)
         {
-            _leaseService.Update(id, new BLL.Lease { LeaseDate = DateTime.Now});
+            _leaseService.Update(id, new BLL.Lease { ReturnDate = DateTime.Now});
             return NoContent();
         }
     }
