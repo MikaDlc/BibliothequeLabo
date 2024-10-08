@@ -25,12 +25,16 @@ namespace API_Bibliotheque.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            var author = _authorService.Get(id);
-            if (author == null)
+            try
             {
-                return NotFound();
+                var author = _authorService.Get(id);
+                return Ok(author.ToAPIDetails());
             }
-            return Ok(author.ToAPIDetails());
+            catch (Exception ex)
+            {
+
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

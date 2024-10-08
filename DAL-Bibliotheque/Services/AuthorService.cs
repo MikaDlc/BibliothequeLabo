@@ -34,9 +34,9 @@ namespace DAL_Bibliotheque.Services
                 return _context.Authors.Include(a => a.BookAuthors).ThenInclude(ba => ba.Book)
                                        .First(a => a.AuthorID == id).ToDALDetails();
             }
-            catch (Exception)
+            catch (InvalidOperationException)
             {
-                return new Author();
+                throw new InvalidOperationException("Invalid ID");
             }
         }
 

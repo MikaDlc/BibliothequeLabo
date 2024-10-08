@@ -1,9 +1,8 @@
-﻿using Commun_Bibliotheque.Entities;
-using System.Collections.Generic;
+﻿using API_Bibliotheque.Models.Get;
 
-namespace BLL_Bibliotheque.Entities
+namespace API_Bibliotheque.Models.GetDetails
 {
-    public class Library : ILibrary
+    public class LibraryDetails
     {
         public int LibraryID { get; set; }
         public string Street { get; set; }
@@ -11,6 +10,6 @@ namespace BLL_Bibliotheque.Entities
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public List<Book> Books { get; set; }
+        public List<BookGet> Books { get; set; }
     }
 }

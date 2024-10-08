@@ -26,12 +26,15 @@ namespace API_Bibliotheque.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            var book = _bookService.Get(id);
-            if (book == null)
+            try
             {
-                return BadRequest("Book not exist");
+                var book = _bookService.Get(id);
+                return Ok(book.ToAPIDetails());
             }
-            return Ok(book.ToAPIDetails());
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

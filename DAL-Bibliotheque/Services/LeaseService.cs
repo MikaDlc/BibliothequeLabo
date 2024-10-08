@@ -21,9 +21,16 @@ namespace DAL_Bibliotheque.Services
 
         public Lease Get(int id)
         {
-            return _context.Leases.Include(l => l.BookLeases).ThenInclude(bl => bl.Book)
-                                  .Include(l => l.Client)
-                                  .First(l => l.LeaseID == id).ToDALDetails();
+            try
+            {
+                return _context.Leases.Include(l => l.BookLeases).ThenInclude(bl => bl.Book)
+                                      .Include(l => l.Client)
+                                      .First(l => l.LeaseID == id).ToDALDetails();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Invalid ID");
+            }
         }
 
         public int Insert(Lease entity)

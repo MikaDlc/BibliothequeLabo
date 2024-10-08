@@ -25,12 +25,15 @@ namespace API_Bibliotheque.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            var lease = _leaseService.Get(id);
-            if (lease == null)
+            try
             {
-                return NotFound();
+                var lease = _leaseService.Get(id);
+                return Ok(lease.ToAPIDetails());
             }
-            return Ok(lease.ToAPIDetails());
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

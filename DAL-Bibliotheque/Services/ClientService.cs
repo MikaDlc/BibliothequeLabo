@@ -34,9 +34,9 @@ namespace DAL_Bibliotheque.Services
                                        .Include(c => c.Sales)
                                        .First(a => a.ClientID == id).ToDALDetails();
             }
-            catch (Exception)
+            catch (InvalidOperationException)
             {
-                return new Client();
+                throw new InvalidOperationException("Invalid ID");
             }
         }
 

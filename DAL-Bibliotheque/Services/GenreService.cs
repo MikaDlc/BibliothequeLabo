@@ -21,8 +21,15 @@ namespace DAL_Bibliotheque.Services
 
         public Genre Get(string Genre)
         {
-            return _context.Genres.Include(g => g.BookGenres).ThenInclude(bg => bg.Book)
-                                  .First(g => g.GName == Genre).ToDALDetails();
+            try
+            {
+                return _context.Genres.Include(g => g.BookGenres).ThenInclude(bg => bg.Book)
+                                      .First(g => g.GName == Genre).ToDALDetails();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Invalid ID");
+            }
         }
 
         public string Insert(Genre entity)

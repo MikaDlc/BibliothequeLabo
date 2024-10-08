@@ -25,12 +25,15 @@ namespace API_Bibliotheque.Controllers
         [HttpGet("{Genre}")]
         public IActionResult Get(string Genre)
         {
-            var genre = _genreService.Get(Genre);
-            if (genre == null)
+            try
             {
-                return NotFound();
+                var genre = _genreService.Get(Genre);
+                return Ok(genre.ToAPIDetails());
             }
-            return Ok(genre.ToAPIDetails());
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

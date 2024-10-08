@@ -21,8 +21,15 @@ namespace DAL_Bibliotheque.Services
 
         public Library Get(int id)
         {
-            return _context.Libraries.Include(l => l.BookLibraries).ThenInclude(bl => bl.Book)
-                                     .First(l => l.LibraryID == id).ToDALDetails();
+            try
+            {
+                return _context.Libraries.Include(l => l.BookLibraries).ThenInclude(bl => bl.Book)
+                                         .First(l => l.LibraryID == id).ToDALDetails();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Invalid ID");
+            }
         }
 
         public int Insert(Library entity)

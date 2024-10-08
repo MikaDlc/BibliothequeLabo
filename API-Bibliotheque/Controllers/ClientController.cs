@@ -26,12 +26,15 @@ namespace API_Bibliotheque.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            var client = _clientService.Get(id);
-            if (client == null)
+            try
             {
-                return NotFound();
+                var client = _clientService.Get(id);
+                return Ok(client.ToAPIDetails());
             }
-            return Ok(client.ToAPIDetails());
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

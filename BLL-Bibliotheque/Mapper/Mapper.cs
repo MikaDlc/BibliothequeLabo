@@ -249,7 +249,7 @@ namespace BLL_Bibliotheque.Mapper
                 Street = entity.Street,
                 Country = entity.Country,
                 NumberH = entity.NumberH,
-                BookLibraries = entity.BookLibraries.Select(bl => bl.ToBLL()).ToList(),
+                Books = entity.BookLibraries.Select(bl => bl.Book.ToBLL()).ToList(),
             };
         }
         public static BLL.Library ToBLL(this DAL.Library entity)

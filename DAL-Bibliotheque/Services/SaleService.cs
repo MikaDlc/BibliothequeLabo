@@ -21,9 +21,16 @@ namespace DAL_Bibliotheque.Services
 
         public Sale Get(int id)
         {
-            return _context.Sales.Include(s => s.BookSales).ThenInclude(bs => bs.Book)
-                                 .Include(s => s.Client)
-                                 .First(s => s.SaleID == id).ToDALDetails();
+            try
+            {
+                return _context.Sales.Include(s => s.BookSales).ThenInclude(bs => bs.Book)
+                                         .Include(s => s.Client)
+                                         .First(s => s.SaleID == id).ToDALDetails();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Invalid ID");
+            }
         }
         public int Insert(Sale entity)
         {

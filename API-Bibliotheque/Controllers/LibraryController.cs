@@ -25,10 +25,15 @@ namespace API_Bibliotheque.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var library = _libraryRepository.Get(id);
-            if (library == null)
-                return NotFound();
-            return Ok(library);
+            try
+            {
+                var library = _libraryRepository.Get(id);
+                return Ok(library.ToAPIDetails());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

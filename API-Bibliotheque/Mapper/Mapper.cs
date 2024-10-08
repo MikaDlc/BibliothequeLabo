@@ -255,6 +255,20 @@ namespace API_Bibliotheque.Mapper
             };
         }
 
+        internal static LibraryDetails ToAPIDetails(this BLL.Library library)
+        {
+            return new LibraryDetails
+            {
+                LibraryID = library.LibraryID,
+                City = library.City,
+                PostalCode = library.PostalCode,
+                Street = library.Street,
+                Country = library.Country,
+                NumberH = library.NumberH,
+                Books = library.Books.Select(b => b.ToAPI()).ToList(),
+            };
+        }
+
         // LibraryStock
 
         internal static LibraryStockDetails ToAPI(this BLL.LibraryStock libraryStock)
