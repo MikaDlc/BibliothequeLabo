@@ -173,6 +173,7 @@ namespace API_Bibliotheque.Mapper
             {
                 ClientID = lease.ClientID,
                 Price = lease.Price,
+                LibraryID = lease.LibraryID,
                 Books = lease.Books.Select(b => new BLL.Book { BookID = b }).ToList()
             };
         }
@@ -209,6 +210,7 @@ namespace API_Bibliotheque.Mapper
             {
                 ClientID = sale.ClientID,
                 Price = sale.Price,
+                LibraryID = sale.LibraryID,
                 Books = sale.Books.Select(b => new BLL.Book { BookID = b }).ToList()
             };
         }

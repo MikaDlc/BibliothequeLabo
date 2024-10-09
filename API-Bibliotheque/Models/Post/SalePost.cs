@@ -6,6 +6,8 @@ namespace API_Bibliotheque.Models.Post
     {
         [Required]
         public double Price { get; set; }
+        [Required] 
+        public int LibraryID { get; set; }
         [Required]
         public int ClientID { get; set; }
         [Required]

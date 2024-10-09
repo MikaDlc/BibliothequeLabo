@@ -1,7 +1,6 @@
 ﻿using BLL_Bibliotheque.Entities;
 using BLL_Bibliotheque.Mapper;
 using Commun_Bibliotheque.Repositories;
-using EF_Bibliotheque;
 using DAL = DAL_Bibliotheque.Entities;
 
 namespace BLL_Bibliotheque.Services

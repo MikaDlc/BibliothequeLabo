@@ -9,7 +9,10 @@ namespace API_Bibliotheque.Models.Post
         [Required]
         public double Price { get; set; }
         [Required]
+        public int LibraryID { get; set; }
+        [Required]
         [Length(1,100)]
         public List<int> Books { get; set; }
+
     }
 }

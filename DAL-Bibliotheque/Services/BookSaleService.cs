@@ -14,6 +14,16 @@ namespace DAL_Bibliotheque.Services
             _context = context;
         }
 
+        public void Delete(int BookID, int SaleID)
+        {
+            var bookSale = _context.BookSales.Find(BookID, SaleID);
+            if (bookSale != null)
+            {
+                _context.BookSales.Remove(bookSale);
+                _context.SaveChanges();
+            }
+        }
+
         public void Insert(BookSale entity)
         {
             try

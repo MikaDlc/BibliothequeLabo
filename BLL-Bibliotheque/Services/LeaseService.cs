@@ -40,6 +40,7 @@ namespace BLL_Bibliotheque.Services
         public int Insert(Lease entity)
         {
             int LeaseID = 0;
+            int SucessInsert = 0;
             try
             {
                 entity.LeaseDate = DateTime.Now;
@@ -54,14 +55,23 @@ namespace BLL_Bibliotheque.Services
                         }
                     );
 
-                    int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
-                    _bookLibraryService.LeaseTheBook(bookLease.BookID, LibraryID);
+                    _bookLibraryService.LeaseTheBook(bookLease.BookID, entity.LibraryID);
+                    SucessInsert++;
                 }
                 return LeaseID;
             }
             catch (Exception ex)
             {
                 Delete(LeaseID);
+                foreach (Book bookLease in entity.Books)
+                {
+                    if (SucessInsert > 0)
+                    {
+                        _bookLeaseService.Delete(LeaseID, bookLease.BookID);
+                        _bookLibraryService.ReturnTheBook(bookLease.BookID, entity.LibraryID);
+                        SucessInsert--;
+                    }
+                }
                 throw new Exception(ex.Message);
             }
         }

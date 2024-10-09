@@ -43,11 +43,22 @@ namespace DAL_Bibliotheque.Services
 
         public void LeaseTheBook(int BookID, int LibraryID)
         {
-            var bookLibrary = _context.BookLibraries.First(bl => bl.LibraryID == LibraryID && bl.BookID == BookID);
-            if (bookLibrary.QDispo == 0)
-                throw new DbUpdateException("No book available");
-            bookLibrary.QDispo = --bookLibrary.QDispo;
-            _context.SaveChanges();
+            try
+            {
+                var bookLibrary = _context.BookLibraries.First(bl => bl.LibraryID == LibraryID && bl.BookID == BookID);
+                if (bookLibrary.QDispo == 0)
+                    throw new InvalidDataException();
+                bookLibrary.QDispo = --bookLibrary.QDispo;
+                _context.SaveChanges();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Invalid Library");
+            }
+            catch (InvalidDataException)
+            {
+                throw new InvalidDataException("No book available");
+            }
         }
 
         public void ReturnTheBook(int BookID, int LibraryID)

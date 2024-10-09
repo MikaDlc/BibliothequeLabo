@@ -6,5 +6,6 @@ namespace Commun_Bibliotheque.Repositories
     {
         public void Insert(TBookSale entity);
         public void SaleTheBook(int BookID, int LibraryID);
+        public void Delete(int BookID, int SaleID);
     }
 }

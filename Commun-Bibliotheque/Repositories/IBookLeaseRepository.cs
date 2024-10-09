@@ -5,5 +5,6 @@ namespace Commun_Bibliotheque.Repositories
     public interface IBookLeaseRepository<TBookLease> where TBookLease : IBookLease
     {
         public void Insert(TBookLease entity);
+        public void Delete(int BookID, int LeaseID);
     }
 }
