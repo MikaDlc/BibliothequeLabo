@@ -20,7 +20,7 @@ namespace EF_Bibliotheque.Configs
             builder.Property(a => a.Email).IsRequired().HasMaxLength(100);
             builder.HasIndex(a => a.Email).IsUnique();
             builder.Property(a => a.Passwd).IsRequired().HasMaxLength(100);
-            builder.Property(a => a.Salage).IsRequired().HasMaxLength(100);
+            builder.Property(a => a.isAdmin).HasDefaultValue(false);
         }
     }
 }
