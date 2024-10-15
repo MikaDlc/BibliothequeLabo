@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Bibliotheque.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241015102910_update_null_client")]
+    [Migration("20241015103602_update_null_client")]
     partial class update_null_client
     {
         /// <inheritdoc />
@@ -176,12 +176,10 @@ namespace EF_Bibliotheque.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientID"));
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -201,7 +199,6 @@ namespace EF_Bibliotheque.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NumberH")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -211,12 +208,10 @@ namespace EF_Bibliotheque.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Street")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

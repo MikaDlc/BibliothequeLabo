@@ -12,11 +12,11 @@ namespace EF_Bibliotheque.Configs
             builder.HasKey(c => c.ClientID);
             builder.Property(c => c.Name).IsRequired().HasMaxLength(50);
             builder.Property(c => c.FirstName).IsRequired().HasMaxLength(50);
-            builder.Property(c => c.Street).HasMaxLength(50);
-            builder.Property(c => c.NumberH).HasMaxLength(10);
-            builder.Property(c => c.PostalCode).HasMaxLength(10);
-            builder.Property(c => c.City).HasMaxLength(50);
-            builder.Property(c => c.Country).HasMaxLength(50);
+            builder.Property(c => c.Street).IsRequired(false).HasMaxLength(50);
+            builder.Property(c => c.NumberH).IsRequired(false).HasMaxLength(10);
+            builder.Property(c => c.PostalCode).IsRequired(false).HasMaxLength(10);
+            builder.Property(c => c.City).IsRequired(false).HasMaxLength(50);
+            builder.Property(c => c.Country).IsRequired(false).HasMaxLength(50);
             builder.Property(a => a.Email).IsRequired().HasMaxLength(100);
             builder.HasIndex(a => a.Email).IsUnique();
             builder.Property(a => a.Passwd).IsRequired().HasMaxLength(100);
