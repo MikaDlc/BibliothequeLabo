@@ -1,7 +1,11 @@
 ﻿using API_Bibliotheque.Mapper;
+using API_Bibliotheque.Models.Auth;
 using API_Bibliotheque.Models.Post;
 using Commun_Bibliotheque.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using BLL = BLL_Bibliotheque.Entities;
 
 namespace API_Bibliotheque.Controllers
@@ -17,19 +21,20 @@ namespace API_Bibliotheque.Controllers
             _clientService = clientService;
         }
 
+        [Authorize("adminRequired")]
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             return Ok(_clientService.Get().Select(c => c.ToAPI()));
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        [Authorize("userRequired")]
+        [HttpGet("/profile")]
+        public IActionResult GetUserInfo()
         {
             try
             {
-                var client = _clientService.Get(id);
-                return Ok(client.ToAPIDetails());
+                return Ok(_clientService.Get(HttpContext.GetId()).ToAPIDetails());
             }
             catch (Exception ex)
             {
@@ -37,7 +42,7 @@ namespace API_Bibliotheque.Controllers
             }
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult Post([FromBody] ClientPost client)
         {
             try
@@ -53,16 +58,17 @@ namespace API_Bibliotheque.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
+        }*/
 
-        [HttpPut("{id:int}")]
-        public IActionResult Put([FromRoute] int id, [FromBody] ClientPost client)
+        [HttpPut]
+        public IActionResult Put([FromBody] ClientPost client)
         {
             if (client == null)
             {
                 return BadRequest();
             }
-            _clientService.Update(id, client.ToBLL());
+            
+            _clientService.Update(HttpContext.GetId(), client.ToBLL());
             return NoContent();
         }
     }

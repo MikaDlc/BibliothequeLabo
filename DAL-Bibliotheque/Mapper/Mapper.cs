@@ -94,7 +94,6 @@ namespace DAL_Bibliotheque.Mapper
                 Country = entity.Country,
                 Email = entity.Email,
                 Passwd = entity.Passwd,
-                Salage = "entity.Salage" // A definir avec l'autentification
             };
         }
 
@@ -129,6 +128,7 @@ namespace DAL_Bibliotheque.Mapper
                 NumberH = entity.NumberH,
                 PostalCode = entity.PostalCode,
                 Street = entity.Street,
+                IsAdmin = entity.isAdmin,
                 Leases = entity.Leases.Select(l => l.ToDAL()).ToList(),
                 Sales = entity.Sales.Select(s => s.ToDAL()).ToList()
             };
@@ -380,6 +380,19 @@ namespace DAL_Bibliotheque.Mapper
             {
                 BookID = entity.BookID,
                 LeaseID = entity.LeaseID,
+            };
+        }
+
+        // Auth
+        public static DAL.Auth ToDALAuth(this EF.Client entity)
+        {
+            return new DAL.Auth
+            {
+                Id = entity.ClientID,
+                Email = entity.Email,
+                Name = entity.Name,
+                FirstName = entity.FirstName,
+                IsAdmin = entity.isAdmin
             };
         }
     }

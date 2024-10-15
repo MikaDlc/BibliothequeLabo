@@ -9,8 +9,6 @@ namespace API_Bibliotheque.Models.Post
         [Required] 
         public int LibraryID { get; set; }
         [Required]
-        public int ClientID { get; set; }
-        [Required]
         [Length(1, 100)]
         public List<int> Books { get; set; }
     }

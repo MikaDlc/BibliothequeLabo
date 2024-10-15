@@ -1,6 +1,7 @@
 ﻿using API_Bibliotheque.Mapper;
 using API_Bibliotheque.Models.Post;
 using Commun_Bibliotheque.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BLL = BLL_Bibliotheque.Entities;
 
@@ -36,6 +37,7 @@ namespace API_Bibliotheque.Controllers
             }
         }
 
+        [Authorize("adminRequired")]
         [HttpPost]
         public IActionResult Post([FromBody] GenrePost genre)
         {

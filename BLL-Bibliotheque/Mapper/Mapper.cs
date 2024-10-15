@@ -102,6 +102,7 @@ namespace BLL_Bibliotheque.Mapper
                 Street = entity.Street,
                 Country = entity.Country,
                 NumberH = entity.NumberH,
+                IsAdmin = entity.IsAdmin,
                 Leases = entity.Leases.Select(l => l.ToBLL()).ToList(),
                 Sales = entity.Sales.Select(s => s.ToBLL()).ToList(),
             };
@@ -336,6 +337,20 @@ namespace BLL_Bibliotheque.Mapper
                 Book = entity.Book.ToBLL(),
                 LeaseID = entity.LeaseID,
                 Lease = entity.Lease.ToBLL(),
+            };
+        }
+
+        // Auth
+
+        internal static BLL.Auth ToBLL(this DAL.Auth entity)
+        {
+            return new BLL.Auth
+            {
+                Id = entity.Id,
+                Email = entity.Email,
+                IsAdmin = entity.IsAdmin,
+                Name = entity.Name,
+                FirstName = entity.FirstName,
             };
         }
     }

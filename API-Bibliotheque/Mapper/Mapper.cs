@@ -1,6 +1,8 @@
-﻿using API_Bibliotheque.Models.Get;
+﻿using API_Bibliotheque.Models.Auth;
+using API_Bibliotheque.Models.Get;
 using API_Bibliotheque.Models.GetDetails;
 using API_Bibliotheque.Models.Post;
+using System.IdentityModel.Tokens.Jwt;
 using BLL = BLL_Bibliotheque.Entities;
 namespace API_Bibliotheque.Mapper
 {
@@ -171,7 +173,6 @@ namespace API_Bibliotheque.Mapper
         {
             return new BLL.Lease
             {
-                ClientID = lease.ClientID,
                 Price = lease.Price,
                 LibraryID = lease.LibraryID,
                 Books = lease.Books.Select(b => new BLL.Book { BookID = b }).ToList()
@@ -208,7 +209,6 @@ namespace API_Bibliotheque.Mapper
         {
             return new BLL.Sale
             {
-                ClientID = sale.ClientID,
                 Price = sale.Price,
                 LibraryID = sale.LibraryID,
                 Books = sale.Books.Select(b => new BLL.Book { BookID = b }).ToList()
@@ -292,6 +292,28 @@ namespace API_Bibliotheque.Mapper
                 NumberH = libraryStock.NumberH,
                 Stock = libraryStock.Stock
             };
+        }
+
+        // Auth
+
+        internal static Auth ToAPI(this BLL.Auth auth)
+        {
+            return new Auth
+            {
+                Id = auth.Id,
+                IsAdmin = auth.IsAdmin
+            };
+        }
+
+        // Extraction token
+
+        internal static int GetId(this HttpContext header)
+        {
+
+            string tokenFromRequest = header.Request.Headers["Authorization"];
+            string token = tokenFromRequest.Substring(7, tokenFromRequest.Length - 7);
+            JwtSecurityToken jwt = new JwtSecurityToken(token);
+            return int.Parse(jwt.Claims.First(x => x.Type == "UserId").Value);
         }
     }
 }

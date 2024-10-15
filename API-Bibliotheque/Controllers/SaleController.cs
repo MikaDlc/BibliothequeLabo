@@ -1,6 +1,7 @@
 ﻿using API_Bibliotheque.Mapper;
 using API_Bibliotheque.Models.Post;
 using Commun_Bibliotheque.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BLL = BLL_Bibliotheque.Entities;
 
@@ -22,6 +23,7 @@ namespace API_Bibliotheque.Controllers
             return Ok(_saleRepository.Get().Select(s => s.ToAPI()));
         }
 
+        [Authorize("adminRequired")]
         [HttpGet("/{id:int}")]
         public IActionResult Get(int id)
         {
@@ -36,6 +38,7 @@ namespace API_Bibliotheque.Controllers
             }
         }
 
+        [Authorize("userRequired")]
         [HttpPost]
         public IActionResult Post([FromBody] SalePost sale)
         {
@@ -43,7 +46,9 @@ namespace API_Bibliotheque.Controllers
             {
                 if (sale == null)
                     return BadRequest();
-                _saleRepository.Insert(sale.ToBLL());
+                var NewSale = sale.ToBLL();
+                NewSale.ClientID = HttpContext.GetId();
+                _saleRepository.Insert(NewSale);
                 return CreatedAtAction(nameof(Get), sale);
             }
             catch (Exception ex)

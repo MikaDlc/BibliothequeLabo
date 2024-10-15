@@ -2,6 +2,10 @@ using DAL = DAL_Bibliotheque;
 using BLL = BLL_Bibliotheque;
 using Commun_Bibliotheque.Repositories;
 using EF_Bibliotheque;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using API_Bibliotheque.Tools;
 
 namespace API_Bibliotheque
 {
@@ -27,17 +31,42 @@ namespace API_Bibliotheque
             builder.Services.AddScoped<ISaleRepository<BLL.Entities.Sale>, BLL.Services.SaleService>();
             builder.Services.AddScoped<ILibraryRepository<DAL.Entities.Library>, DAL.Services.LibraryService>();
             builder.Services.AddScoped<ILibraryRepository<BLL.Entities.Library>, BLL.Services.LibraryService>();
+            builder.Services.AddScoped<IAuthRepository<DAL.Entities.Auth>, DAL.Services.AuthService>();
+            builder.Services.AddScoped<IAuthRepository<BLL.Entities.Auth>, BLL.Services.AuthService>();
             builder.Services.AddScoped<IBookAuthorRepository<DAL.Entities.BookAuthor>, DAL.Services.BookAuthorService>();
             builder.Services.AddScoped<IBookGenreRepository<DAL.Entities.BookGenre>, DAL.Services.BookGenreService>();
             builder.Services.AddScoped<IBookLibraryRepository<DAL.Entities.BookLibrary>, DAL.Services.BookLibraryService>();
             builder.Services.AddScoped<IBookSaleRepository<DAL.Entities.BookSale>, DAL.Services.BookSaleService>();
             builder.Services.AddScoped<IBookLeaseRepository<DAL.Entities.BookLease>, DAL.Services.BookLeaseService>();
+            builder.Services.AddScoped<JwtGenerator>();
 
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(
+                    options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters()
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtGenerator.secretKey)),
+                            ValidateLifetime = true,
+                            ValidateIssuer = true,
+                            ValidIssuer = "monapi.com",
+                            ValidateAudience = false,
+                        };
+                    }
+                );
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("adminRequired", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("userRequired", policy => policy.RequireAuthenticatedUser());
+            });
 
             var app = builder.Build();
 
@@ -50,8 +79,8 @@ namespace API_Bibliotheque
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

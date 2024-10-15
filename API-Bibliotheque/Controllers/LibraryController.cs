@@ -3,6 +3,7 @@ using BLL = BLL_Bibliotheque.Entities;
 using Microsoft.AspNetCore.Mvc;
 using API_Bibliotheque.Mapper;
 using API_Bibliotheque.Models.Post;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_Bibliotheque.Controllers
 {
@@ -36,6 +37,7 @@ namespace API_Bibliotheque.Controllers
             }
         }
 
+        [Authorize("adminRequired")]
         [HttpPost]
         public IActionResult Post([FromBody] LibraryPost library)
         {
