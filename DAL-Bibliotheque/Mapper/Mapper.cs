@@ -90,8 +90,6 @@ namespace DAL_Bibliotheque.Mapper
                 PostalCode = entity.PostalCode,
                 City = entity.City,
                 Country = entity.Country,
-                Email = entity.Email,
-                Passwd = entity.Passwd,
             };
         }
 
@@ -102,7 +100,6 @@ namespace DAL_Bibliotheque.Mapper
                 ClientID = entity.ClientID,
                 FirstName = entity.FirstName,
                 Email = entity.Email,
-                Passwd = entity.Passwd,
                 Name = entity.Name,
                 City = entity.City,
                 Country = entity.Country,

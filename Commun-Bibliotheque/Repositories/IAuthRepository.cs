@@ -7,6 +7,5 @@ namespace Commun_Bibliotheque.Repositories
         public bool Register(string email, string password, string name, string firstName);
         public TAuth Login(string email, string password);
         public string GetPassword(string email);
-        public TAuth GetAuth(string email);
     }
 }

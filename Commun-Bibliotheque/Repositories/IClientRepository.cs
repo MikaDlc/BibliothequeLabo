@@ -9,5 +9,7 @@ namespace Commun_Bibliotheque.Repositories
         public TClient Get(int id);
         public int Insert(TClient entity);
         public void Update(int id, TClient entity);
+        public void EmailUpdate(int id, string email);
+        public void PasswordUpdate(int id, string password);
     }
 }

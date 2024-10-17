@@ -101,8 +101,6 @@ namespace API_Bibliotheque.Mapper
             {
                 FirstName = client.FirsName,
                 Name = client.Name,
-                Email = client.Email,
-                Passwd = client.Passwd,
                 City = client.City,
                 PostalCode = client.PostalCode,
                 Street = client.Street,

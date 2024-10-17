@@ -12,14 +12,6 @@ namespace API_Bibliotheque.Models.Post
         [MaxLength(50)]
         public string FirsName { get; set; }
         [Required]
-        [MaxLength(100)]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required]
-        [MaxLength(100)]
-        [DataType(DataType.Password)]
-        public string Passwd { get; set; }
-        [Required]
         [MaxLength(50)]
         public string City { get; set; }
         [Required]

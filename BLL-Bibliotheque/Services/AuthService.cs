@@ -12,10 +12,6 @@ namespace BLL_Bibliotheque.Services
         {
             _Service = Service;
         }
-        public Auth GetAuth(string email)
-        {
-            throw new NotImplementedException();
-        }
 
         public string GetPassword(string email)
         {

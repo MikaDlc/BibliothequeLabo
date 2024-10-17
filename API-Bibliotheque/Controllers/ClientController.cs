@@ -1,10 +1,10 @@
 ﻿using API_Bibliotheque.Mapper;
-using API_Bibliotheque.Models.Auth;
 using API_Bibliotheque.Models.Post;
 using Commun_Bibliotheque.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BLL = BLL_Bibliotheque.Entities;
+using Crypt = BCrypt.Net.BCrypt;
 
 namespace API_Bibliotheque.Controllers
 {
@@ -40,6 +40,7 @@ namespace API_Bibliotheque.Controllers
             }
         }
 
+        [Authorize("userRequired")]
         [HttpPut]
         public IActionResult Put([FromBody] ClientPost client)
         {
@@ -50,6 +51,44 @@ namespace API_Bibliotheque.Controllers
             
             _clientService.Update(HttpContext.GetId(), client.ToBLL());
             return NoContent();
+        }
+
+        [Authorize("userRequired")]
+        [HttpPut("email")]
+        public IActionResult PutEmail([FromBody] EmailPost email)
+        {
+            if (email == null)
+            {
+                return BadRequest();
+            }
+
+            _clientService.EmailUpdate(HttpContext.GetId(), email.Email);
+            return NoContent();
+        }
+
+        [Authorize("userRequired")]
+        [HttpPut("password")]
+        public IActionResult PutPassword([FromBody] PasswdPost passwd)
+        {
+            if (passwd == null)
+            {
+                return BadRequest();
+            }
+
+            _clientService.PasswordUpdate(HttpContext.GetId(), Crypt.HashPassword(passwd.Passwd));
+            return NoContent();
+        }
+
+        [Authorize("userRequired")]
+        [HttpPost("equal")]
+        public IActionResult PostEqual([FromBody] PasswdPost passwd)
+        {
+            if (passwd == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(Crypt.Verify(passwd.Passwd, _clientService.Get(HttpContext.GetId()).Passwd));
         }
     }
 }

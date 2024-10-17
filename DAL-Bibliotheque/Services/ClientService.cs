@@ -55,6 +55,7 @@ namespace DAL_Bibliotheque.Services
             }
         }
 
+
         public void Update(int id, Client entity)
         {
             try
@@ -67,6 +68,32 @@ namespace DAL_Bibliotheque.Services
                 client.PostalCode = entity.PostalCode;
                 client.City = entity.City;
                 client.Country = entity.Country;
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Update failed");
+            }
+        }
+        public void EmailUpdate(int id, string email)
+        {
+            try
+            {
+                var client = _context.Clients.First(a => a.ClientID == id);
+                client.Email = email;
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Update failed");
+            }
+        }
+        public void PasswordUpdate(int id, string password)
+        {
+            try
+            {
+                var client = _context.Clients.First(a => a.ClientID == id);
+                client.Passwd = password;
                 _context.SaveChanges();
             }
             catch (Exception)

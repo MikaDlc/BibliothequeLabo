@@ -40,6 +40,7 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Book entity)
         {
+            // TODO: Refaire les relation plus transaction
             int BookID = 0;
             try
             {

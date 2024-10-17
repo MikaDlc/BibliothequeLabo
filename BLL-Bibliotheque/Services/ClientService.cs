@@ -13,6 +13,7 @@ namespace BLL_Bibliotheque.Services
             _Service = Service;
         }
 
+
         public IEnumerable<Client> Get()
         {
             return _Service.Get().Select(c => c.ToBLL());
@@ -28,9 +29,18 @@ namespace BLL_Bibliotheque.Services
             return _Service.Insert(entity.ToDAL());
         }
 
+
         public void Update(int id, Client entity)
         {
             _Service.Update(id, entity.ToDAL());
+        }
+        public void EmailUpdate(int id, string email)
+        {
+            _Service.EmailUpdate(id, email);
+        }
+        public void PasswordUpdate(int id, string password)
+        {
+            _Service.PasswordUpdate(id, password);
         }
     }
 }
