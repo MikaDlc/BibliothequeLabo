@@ -12,14 +12,21 @@ namespace DAL_Bibliotheque.Services
         {
             _context = context;
         }
-        public Auth GetAuth(string email)
-        {
-            throw new NotImplementedException();
-        }
 
         public string GetPassword(string email)
         {
-            return _context.Clients.First(c => c.Email == email).Passwd;
+            try
+            {
+                var client = _context.Clients.First(c => c.Email == email);
+                if (client is not null)
+                    return client.Passwd;
+                else
+                    throw new Exception("Client not found");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Auth Login(string email, string password)
@@ -32,7 +39,7 @@ namespace DAL_Bibliotheque.Services
             Client client = new Client { Email = email, Passwd = password, Name = name, FirstName = firstName };
             try
             {
-                _context.Clients.Add(client.ToEF());
+                _context.Clients.Add(client.ToEFAuth());
                 _context.SaveChanges();
                 return true;
             }

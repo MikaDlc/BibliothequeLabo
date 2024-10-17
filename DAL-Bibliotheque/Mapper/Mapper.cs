@@ -90,6 +90,7 @@ namespace DAL_Bibliotheque.Mapper
                 PostalCode = entity.PostalCode,
                 City = entity.City,
                 Country = entity.Country,
+                isAdmin = false,
             };
         }
 
@@ -388,6 +389,17 @@ namespace DAL_Bibliotheque.Mapper
                 Name = entity.Name,
                 FirstName = entity.FirstName,
                 IsAdmin = entity.isAdmin
+            };
+        }
+
+        public static EF.Client ToEFAuth(this DAL.Client entity)
+        {
+            return new EF.Client
+            {
+                Email = entity.Email,
+                Name = entity.Name,
+                Passwd = entity.Passwd,
+                FirstName = entity.FirstName,
             };
         }
     }
