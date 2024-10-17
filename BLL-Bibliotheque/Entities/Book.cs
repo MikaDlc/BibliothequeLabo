@@ -12,7 +12,5 @@ namespace BLL_Bibliotheque.Entities
         public List<LibraryStock> Libraries { get; set; }
         public List<Author> Authors { get; set; }
         public List<Genre> Genres { get; set; }
-        public List<Sale> Sales { get; set; }
-        public List<Lease> Leases { get; set; }
     }
 }

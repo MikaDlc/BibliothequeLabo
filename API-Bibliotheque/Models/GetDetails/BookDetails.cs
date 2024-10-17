@@ -12,7 +12,5 @@ namespace API_Bibliotheque.Models.GetDetails
         public List<AuthorGet> Authors { get; set; }
         public List<GenreGet> Genres { get; set; }
         public List<LibraryStockDetails> Libraries { get; set; }
-        public List<SaleGet> Sales { get; set; }
-        public List<LeaseGet> Leases { get; set; }
     }
 }

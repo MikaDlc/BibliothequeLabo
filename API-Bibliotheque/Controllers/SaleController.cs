@@ -17,6 +17,7 @@ namespace API_Bibliotheque.Controllers
             _saleRepository = saleRepository;
         }
 
+        [Authorize("adminRequired")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -24,7 +25,7 @@ namespace API_Bibliotheque.Controllers
         }
 
         [Authorize("adminRequired")]
-        [HttpGet("/{id:int}")]
+        [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
             try

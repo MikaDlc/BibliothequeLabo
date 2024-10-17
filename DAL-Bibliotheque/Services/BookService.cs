@@ -44,8 +44,6 @@ namespace DAL_Bibliotheque.Services
                 return _context.Books.Include(b => b.BookAuthors).ThenInclude(ba => ba.Author)
                                      .Include(b => b.BookGenres).ThenInclude(bg => bg.Genre)
                                      .Include(b => b.BookLibraries).ThenInclude(bl => bl.Library)
-                                     .Include(b => b.BookLeases).ThenInclude(bl => bl.Lease)
-                                     .Include(b => b.BookSales).ThenInclude(bs => bs.Sale)
                                      .First(b => b.BookID == id).ToDALDetails();
             }
             catch (InvalidOperationException)

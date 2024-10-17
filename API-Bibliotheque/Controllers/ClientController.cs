@@ -4,8 +4,6 @@ using API_Bibliotheque.Models.Post;
 using Commun_Bibliotheque.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using BLL = BLL_Bibliotheque.Entities;
 
 namespace API_Bibliotheque.Controllers
@@ -41,24 +39,6 @@ namespace API_Bibliotheque.Controllers
                 return NotFound(ex.Message);
             }
         }
-
-        /*[HttpPost]
-        public IActionResult Post([FromBody] ClientPost client)
-        {
-            try
-            {
-                if (client == null)
-                {
-                    return BadRequest();
-                }
-                _clientService.Insert(client.ToBLL());
-                return CreatedAtAction(nameof(Get), client);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }*/
 
         [HttpPut]
         public IActionResult Put([FromBody] ClientPost client)

@@ -60,8 +60,6 @@ namespace API_Bibliotheque.Mapper
                 Authors = book.Authors.Select(a => a.ToAPI()).ToList(),
                 Genres = book.Genres.Select(g => g.ToAPI()).ToList(),
                 Libraries = book.Libraries.Select(l => l.ToAPI()).ToList(),
-                Sales = book.Sales.Select(s => s.ToAPI()).ToList(),
-                Leases = book.Leases.Select(l => l.ToAPI()).ToList()
             };
         }
 

@@ -24,7 +24,6 @@ namespace API_Bibliotheque.Controllers
             return Ok(_bookService.Get().Select(b => b.ToAPI()));
         }
 
-        [Authorize("adminRequired")]
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {

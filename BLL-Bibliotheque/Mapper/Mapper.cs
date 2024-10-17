@@ -16,8 +16,6 @@ namespace BLL_Bibliotheque.Mapper
                 Price = entity.Price,
                 Authors = entity.BookAuthors.Select(ba => ba.Author.ToBLL()).ToList(),
                 Genres = entity.BookGenres.Select(bg => bg.Genre.ToBLL()).ToList(),
-                Leases = entity.BookLeases.Select(bl => bl.Lease.ToBLL()).ToList(),
-                Sales = entity.BookSales.Select(bs => bs.Sale.ToBLL()).ToList(),
                 Libraries = entity.BookLibraries.Select(bl => 
                     new BLL.LibraryStock
                     {

@@ -17,6 +17,7 @@ namespace API_Bibliotheque.Controllers
             _leaseService = leaseService;
         }
 
+        [Authorize("adminRequired")]
         [HttpGet]
         public IActionResult Get()
         {

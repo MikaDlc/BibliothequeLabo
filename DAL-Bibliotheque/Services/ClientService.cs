@@ -67,8 +67,6 @@ namespace DAL_Bibliotheque.Services
                 client.PostalCode = entity.PostalCode;
                 client.City = entity.City;
                 client.Country = entity.Country;
-                client.Email = entity.Email;
-                client.Passwd = entity.Passwd;
                 _context.SaveChanges();
             }
             catch (Exception)
