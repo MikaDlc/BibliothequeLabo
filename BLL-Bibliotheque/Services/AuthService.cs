@@ -23,9 +23,9 @@ namespace BLL_Bibliotheque.Services
             return _Service.Login(email, password).ToBLL();
         }
 
-        public bool Register(string email, string password, string name, string firstName)
+        public bool Register(string email, string password, string name, string firstName, bool isAdmin = false)
         {
-            return _Service.Register(email, password, name, firstName);
+            return _Service.Register(email, password, name, firstName, isAdmin);
         }
     }
 }

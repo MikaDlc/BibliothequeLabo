@@ -400,6 +400,7 @@ namespace DAL_Bibliotheque.Mapper
                 Name = entity.Name,
                 Passwd = entity.Passwd,
                 FirstName = entity.FirstName,
+                isAdmin = entity.IsAdmin
             };
         }
     }

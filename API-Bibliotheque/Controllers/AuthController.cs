@@ -59,5 +59,19 @@ namespace API_Bibliotheque.Controllers
                 return BadRequest("Email Failed");
             }
         }
+
+        [Authorize("adminRequired")]
+        [HttpPost("Register/Admin")]
+        public IActionResult AdminRegister([FromBody] RegisterPostAdmin auth)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            string hashpwd = Crypt.HashPassword(auth.Password);
+
+            if (_AuthService.Register(auth.Email, hashpwd, auth.Name, auth.FirsName, auth.IsAdmin))
+                return Ok();
+            else
+                return BadRequest("Register Failed");
+        }
     }
 }

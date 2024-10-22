@@ -34,9 +34,9 @@ namespace DAL_Bibliotheque.Services
             return _context.Clients.First(c => c.Email == email && c.Passwd == password).ToDALAuth();
         }
 
-        public bool Register(string email, string password, string name, string firstName)
+        public bool Register(string email, string password, string name, string firstName, bool isAdmin)
         {
-            Client client = new Client { Email = email, Passwd = password, Name = name, FirstName = firstName };
+            Client client = new Client { Email = email, Passwd = password, Name = name, FirstName = firstName, IsAdmin = isAdmin };
             try
             {
                 _context.Clients.Add(client.ToEFAuth());
