@@ -33,11 +33,7 @@ namespace API_Bibliotheque
             builder.Services.AddScoped<ILibraryRepository<BLL.Entities.Library>, BLL.Services.LibraryService>();
             builder.Services.AddScoped<IAuthRepository<DAL.Entities.Auth>, DAL.Services.AuthService>();
             builder.Services.AddScoped<IAuthRepository<BLL.Entities.Auth>, BLL.Services.AuthService>();
-            builder.Services.AddScoped<IBookAuthorRepository<DAL.Entities.BookAuthor>, DAL.Services.BookAuthorService>();
-            builder.Services.AddScoped<IBookGenreRepository<DAL.Entities.BookGenre>, DAL.Services.BookGenreService>();
             builder.Services.AddScoped<IBookLibraryRepository<DAL.Entities.BookLibrary>, DAL.Services.BookLibraryService>();
-            builder.Services.AddScoped<IBookSaleRepository<DAL.Entities.BookSale>, DAL.Services.BookSaleService>();
-            builder.Services.AddScoped<IBookLeaseRepository<DAL.Entities.BookLease>, DAL.Services.BookLeaseService>();
             builder.Services.AddScoped<JwtGenerator>();
 
 

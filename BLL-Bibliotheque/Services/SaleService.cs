@@ -8,16 +8,13 @@ namespace BLL_Bibliotheque.Services
     public class SaleService : ISaleRepository<Sale>
     {
         private ISaleRepository<DAL.Sale> _saleRepository;
-        private IBookSaleRepository<DAL.BookSale> _bookSaleRepository;
         private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryService;
         private IBookRepository<DAL.Book> _bookService;
         public SaleService(ISaleRepository<DAL.Sale> saleRepository,
-                           IBookSaleRepository<DAL.BookSale> bookSaleRepository,
                            IBookLibraryRepository<DAL.BookLibrary> bookLibraryRepository,
                            IBookRepository<DAL.Book> bookRepository)
         {
             _saleRepository = saleRepository;
-            _bookSaleRepository = bookSaleRepository;
             _bookLibraryService = bookLibraryRepository;
             _bookService = bookRepository;
         }
@@ -44,18 +41,11 @@ namespace BLL_Bibliotheque.Services
             try
             {
                 entity.DateSale = DateTime.Now;
-                saleID = _saleRepository.Insert(entity.ToDAL());
-                foreach (Book bookSale in entity.Books)
+                var newSale = entity.ToDAL();
+                saleID = _saleRepository.Insert(newSale);
+                foreach (Book book in entity.Books)
                 {
-                    _bookSaleRepository.Insert(
-                        new DAL.BookSale
-                        {
-                            SaleID = saleID,
-                            BookID = bookSale.BookID
-                        }
-                    );
-
-                    _bookLibraryService.LeaseTheBook(bookSale.BookID, entity.LibraryID);
+                    _bookLibraryService.LeaseTheBook(book.BookID, entity.LibraryID);
                     SucessInsert++;
                 }
 
@@ -64,14 +54,9 @@ namespace BLL_Bibliotheque.Services
             catch (Exception ex)
             {
                 Delete(saleID);
-                foreach (Book bookSale in entity.Books)
+                foreach (Book book in entity.Books)
                 {
-                    if (SucessInsert > 0)
-                    {
-                        _bookSaleRepository.Delete(bookSale.BookID, saleID);
-                        _bookLibraryService.ReturnTheBook(bookSale.BookID, entity.LibraryID);
-                        SucessInsert--;
-                    }
+                        _bookLibraryService.ReturnTheBook(book.BookID, entity.LibraryID);
                 }
                 throw new Exception(ex.Message);
             }

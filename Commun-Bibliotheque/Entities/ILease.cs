@@ -1,6 +1,6 @@
 ﻿namespace Commun_Bibliotheque.Entities
 {
-    public interface ILease : IEntity
+    public interface ILease
     {
     }
 }

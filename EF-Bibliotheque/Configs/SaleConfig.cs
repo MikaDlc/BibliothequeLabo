@@ -15,6 +15,7 @@ namespace EF_Bibliotheque.Configs
             builder.Property(s => s.Price).IsRequired();
             builder.Property(s => s.DateSale).IsRequired();
             builder.HasOne(s => s.Client).WithMany(c => c.Sales).HasForeignKey(s => s.ClientID);
+            builder.HasMany(s => s.Books).WithMany(b => b.Sales);
         }
     }
 }

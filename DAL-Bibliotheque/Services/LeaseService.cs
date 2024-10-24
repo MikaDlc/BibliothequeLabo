@@ -33,7 +33,7 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                return _context.Leases.Include(l => l.BookLeases).ThenInclude(bl => bl.Book)
+                return _context.Leases.Include(l => l.Books)
                                       .Include(l => l.Client)
                                       .First(l => l.LeaseID == id).ToDALDetails();
             }
@@ -48,6 +48,7 @@ namespace DAL_Bibliotheque.Services
             try
             {
                 var lease = entity.ToEF();
+                lease.Books = entity.Books.Select(b => _context.Books.Find(b.BookID)).ToList();
                 _context.Leases.Add(lease);
                 _context.SaveChanges();
                 return lease.LeaseID;

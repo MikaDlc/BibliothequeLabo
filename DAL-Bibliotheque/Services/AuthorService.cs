@@ -31,7 +31,7 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                return _context.Authors.Include(a => a.BookAuthors).ThenInclude(ba => ba.Book)
+                return _context.Authors.Include(a => a.Books)
                                        .First(a => a.AuthorID == id).ToDALDetails();
             }
             catch (InvalidOperationException)

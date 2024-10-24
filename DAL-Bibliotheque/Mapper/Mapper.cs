@@ -14,7 +14,9 @@ namespace DAL_Bibliotheque.Mapper
                 Title = entity.Title,
                 Edition = entity.Edition,
                 EditionDate = entity.EditionDate,
-                Price = entity.Price
+                Price = entity.Price,
+                Authors = entity.Authors.Select(a => a.ToEF()).ToList(),
+                Genres = entity.Genres.Select(g => g.ToEF()).ToList()
             };
         }
 
@@ -40,8 +42,8 @@ namespace DAL_Bibliotheque.Mapper
                 EditionDate = entity.EditionDate,
                 Price = entity.Price,
                 BookLibraries = entity.BookLibraries.Select(bl => bl.ToDAL()).ToList(),
-                BookAuthors = entity.BookAuthors.Select(ba => ba.ToDAL()).ToList(),
-                BookGenres = entity.BookGenres.Select(bg => bg.ToDAL()).ToList(),
+                Authors = entity.Authors.Select(a => a.ToDAL()).ToList(),
+                Genres = entity.Genres.Select(g => g.ToDAL()).ToList(),
             };
         }
 
@@ -53,6 +55,16 @@ namespace DAL_Bibliotheque.Mapper
                 AuthorID = entity.AuthorID,
                 FirstName = entity.FirstName,
                 Name = entity.Name
+            };
+        }
+
+        public static EF.Author ToEFDetails(this DAL.Author entity)
+        {
+            return new EF.Author
+            {
+                AuthorID = entity.AuthorID,
+                FirstName = entity.FirstName,
+                Name = entity.Name,
             };
         }
 
@@ -73,7 +85,7 @@ namespace DAL_Bibliotheque.Mapper
                 AuthorID = entity.AuthorID,
                 FirstName = entity.FirstName,
                 Name = entity.Name,
-                BookAuthors = entity.BookAuthors.Select(ba => ba.ToDAL()).ToList()
+                Books = entity.Books.Select(b => b.ToDAL()).ToList()
             };
         }
 
@@ -152,7 +164,7 @@ namespace DAL_Bibliotheque.Mapper
             return new DAL.Genre
             {
                 GName = entity.GName,
-                BookGenres = entity.BookGenres.Select(bg => bg.ToDAL()).ToList()
+                Books = entity.Books.Select(b => b.ToDAL()).ToList()
             };
         }
 
@@ -165,7 +177,7 @@ namespace DAL_Bibliotheque.Mapper
                 LeaseDate = entity.LeaseDate,
                 ReturnDate = entity.ReturnDate,
                 ClientID = entity.ClientID,
-                Price = entity.Price
+                Price = entity.Price,
             };
         }
 
@@ -191,7 +203,7 @@ namespace DAL_Bibliotheque.Mapper
                 ClientID = entity.ClientID,
                 Client = entity.Client.ToDAL(),
                 Price = entity.Price,
-                BookLeases = entity.BookLeases.Select(bl => bl.ToDAL()).ToList()
+                Books = entity.Books.Select(b => b.ToDAL()).ToList()
             };
         }
 
@@ -203,7 +215,7 @@ namespace DAL_Bibliotheque.Mapper
                 SaleID = entity.SaleID,
                 DateSale = entity.DateSale,
                 ClientID = entity.ClientID,
-                Price = entity.Price
+                Price = entity.Price,
             };
         }
 
@@ -227,7 +239,7 @@ namespace DAL_Bibliotheque.Mapper
                 ClientID = entity.ClientID,
                 Client = entity.Client.ToDAL(),
                 Price = entity.Price,
-                BookSales = entity.BookSales.Select(bs => bs.ToDAL()).ToList()
+                Books = entity.Books.Select(b => b.ToDAL()).ToList()
             };
         }
 
@@ -292,90 +304,6 @@ namespace DAL_Bibliotheque.Mapper
                 BookID = entity.BookID,
                 LibraryID = entity.LibraryID,
                 QDispo = entity.QDispo
-            };
-        }
-
-        // BookAuthor
-        private static DAL.BookAuthor ToDAL(this EF.BookAuthor entity)
-        {
-            return new DAL.BookAuthor
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToDAL(),
-                AuthorID = entity.AuthorID,
-                Author = entity.Author.ToDAL(),
-            };
-        }
-
-        public static EF.BookAuthor ToEF(this DAL.BookAuthor entity)
-        {
-            return new EF.BookAuthor
-            {
-                BookID = entity.BookID,
-                AuthorID = entity.AuthorID,
-            };
-        }
-
-        // BookGenre
-        private static DAL.BookGenre ToDAL(this EF.BookGenre entity)
-        {
-            return new DAL.BookGenre
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToDAL(),
-                GName = entity.GName,
-                Genre = entity.Genre.ToDAL(),
-            };
-        }
-
-        public static EF.BookGenre ToEF(this DAL.BookGenre entity)
-        {
-            return new EF.BookGenre
-            {
-                BookID = entity.BookID,
-                GName = entity.GName,
-            };
-        }
-
-        // BookSale
-        private static DAL.BookSale ToDAL(this EF.BookSale entity)
-        {
-            return new DAL.BookSale
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToDAL(),
-                SaleID = entity.SaleID,
-                Sale = entity.Sale.ToDAL(),
-            };
-        }
-
-        public static EF.BookSale ToEF(this DAL.BookSale entity)
-        {
-            return new EF.BookSale
-            {
-                BookID = entity.BookID,
-                SaleID = entity.SaleID,
-            };
-        }
-
-        // BookLease
-        private static DAL.BookLease ToDAL(this EF.BookLease entity)
-        {
-            return new DAL.BookLease
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToDAL(),
-                LeaseID = entity.LeaseID,
-                Lease = entity.Lease.ToDAL(),
-            };
-        }
-
-        public static EF.BookLease ToEF(this DAL.BookLease entity)
-        {
-            return new EF.BookLease
-            {
-                BookID = entity.BookID,
-                LeaseID = entity.LeaseID,
             };
         }
 

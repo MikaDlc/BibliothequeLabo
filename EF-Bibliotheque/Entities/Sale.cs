@@ -7,6 +7,6 @@
         public DateTime DateSale { get; set; }
         public int ClientID { get; set; }
         public Client Client { get; set; }
-        public List<BookSale> BookSales { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

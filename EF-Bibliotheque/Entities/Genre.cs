@@ -3,6 +3,6 @@
     public class Genre
     {
         public string GName { get; set; }
-        public List<BookGenre> BookGenres { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

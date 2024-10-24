@@ -1,6 +1,6 @@
 ﻿namespace Commun_Bibliotheque.Entities
 {
-    public interface IAuthor : IEntity
+    public interface IAuthor
     {
     }
 }

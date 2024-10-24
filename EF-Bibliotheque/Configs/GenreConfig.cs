@@ -12,6 +12,7 @@ namespace EF_Bibliotheque.Configs
             builder.HasKey(g => g.GName);
             builder.Property(g => g.GName).IsRequired().HasMaxLength(50).ValueGeneratedOnAdd();
             builder.HasIndex(g => g.GName).IsUnique();
+            builder.HasMany(g => g.Books).WithMany(b => b.Genres);
         }
     }
 }

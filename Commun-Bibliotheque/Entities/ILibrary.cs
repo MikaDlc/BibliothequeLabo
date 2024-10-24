@@ -1,6 +1,6 @@
 ﻿namespace Commun_Bibliotheque.Entities
 {
-    public interface ILibrary : IEntity
+    public interface ILibrary
     {
     }
 }

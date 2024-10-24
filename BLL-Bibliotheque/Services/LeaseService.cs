@@ -8,16 +8,13 @@ namespace BLL_Bibliotheque.Services
     public class LeaseService : ILeaseRepository<Lease>
     {
         private ILeaseRepository<DAL.Lease> _leaseService;
-        private IBookLeaseRepository<DAL.BookLease> _bookLeaseService;
         private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryService;
         private IBookRepository<DAL.Book> _bookService;
         public LeaseService(ILeaseRepository<DAL.Lease> Service,
-                            IBookLeaseRepository<DAL.BookLease> bookLeaseService,
                             IBookLibraryRepository<DAL.BookLibrary> bookLibraryService,
                             IBookRepository<DAL.Book> bookService)
         {
             _leaseService = Service;
-            _bookLeaseService = bookLeaseService;
             _bookLibraryService = bookLibraryService;
             _bookService = bookService;
         }
@@ -44,18 +41,11 @@ namespace BLL_Bibliotheque.Services
             try
             {
                 entity.LeaseDate = DateTime.Now;
-                LeaseID = _leaseService.Insert(entity.ToDAL());
-                foreach (Book bookLease in entity.Books)
+                var newLease = entity.ToDALDetails();
+                LeaseID = _leaseService.Insert(newLease);
+                foreach (Book book in entity.Books)
                 {
-                    _bookLeaseService.Insert(
-                        new DAL.BookLease
-                        {
-                            LeaseID = LeaseID,
-                            BookID = bookLease.BookID
-                        }
-                    );
-
-                    _bookLibraryService.LeaseTheBook(bookLease.BookID, entity.LibraryID);
+                    _bookLibraryService.LeaseTheBook(book.BookID, entity.LibraryID);
                     SucessInsert++;
                 }
                 return LeaseID;
@@ -63,12 +53,11 @@ namespace BLL_Bibliotheque.Services
             catch (Exception ex)
             {
                 Delete(LeaseID);
-                foreach (Book bookLease in entity.Books)
+                foreach (Book book in entity.Books)
                 {
                     if (SucessInsert > 0)
                     {
-                        _bookLeaseService.Delete(LeaseID, bookLease.BookID);
-                        _bookLibraryService.ReturnTheBook(bookLease.BookID, entity.LibraryID);
+                        _bookLibraryService.ReturnTheBook(book.BookID, entity.LibraryID);
                         SucessInsert--;
                     }
                 }
@@ -76,14 +65,13 @@ namespace BLL_Bibliotheque.Services
             }
         }
 
-        public void Update(int id, Lease entity)
+        public void Update(int libraryId, Lease entity)
         {
-            _leaseService.Update(id, entity.ToDAL());
-            Lease lease = _leaseService.Get(id).ToBLLDetails();
+            _leaseService.Update(entity.LeaseID, entity.ToDAL());
+            Lease lease = _leaseService.Get(entity.LeaseID).ToBLLDetails();
             foreach (Book bookLease in lease.Books)
             {
-                int LibraryID = _bookService.Get(bookLease.BookID).BookLibraries[0].LibraryID;
-                _bookLibraryService.ReturnTheBook(bookLease.BookID, LibraryID);
+                _bookLibraryService.ReturnTheBook(bookLease.BookID, libraryId);
             }
         }
     }

@@ -16,6 +16,7 @@ namespace EF_Bibliotheque.Configs
             builder.Property(l => l.ReturnDate).IsRequired(false);
             builder.Property(l => l.Price).IsRequired(false);
             builder.HasOne(l => l.Client).WithMany(c => c.Leases).HasForeignKey(l => l.ClientID);
+            builder.HasMany(l => l.Books).WithMany(b => b.Leases);
         }
     }
 }

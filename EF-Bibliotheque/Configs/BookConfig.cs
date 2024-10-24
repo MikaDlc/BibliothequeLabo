@@ -17,6 +17,10 @@ namespace EF_Bibliotheque.Configs
             builder.Property(b => b.EditionDate).IsRequired();
             builder.Property(b => b.Price).IsRequired();
             builder.HasIndex(b => new { b.Title, b.Edition });
+            builder.HasMany(b => b.Authors).WithMany(a => a.Books);
+            builder.HasMany(b => b.Genres).WithMany(g => g.Books);
+            builder.HasMany(b => b.Sales).WithMany(s => s.Books);
+            builder.HasMany(b => b.Leases).WithMany(l => l.Books);
         }
     }
 }

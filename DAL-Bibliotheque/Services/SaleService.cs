@@ -33,7 +33,7 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                return _context.Sales.Include(s => s.BookSales).ThenInclude(bs => bs.Book)
+                return _context.Sales.Include(s => s.Books)
                                          .Include(s => s.Client)
                                          .First(s => s.SaleID == id).ToDALDetails();
             }
@@ -47,6 +47,7 @@ namespace DAL_Bibliotheque.Services
             try
             {
                 var sale = entity.ToEF();
+                sale.Books = entity.Books.Select(b => _context.Books.Find(b.BookID)).ToList();
                 _context.Sales.Add(sale);
                 _context.SaveChanges();
                 return sale.SaleID;

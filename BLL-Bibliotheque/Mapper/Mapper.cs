@@ -14,9 +14,9 @@ namespace BLL_Bibliotheque.Mapper
                 Edition = entity.Edition,
                 EditionDate = entity.EditionDate,
                 Price = entity.Price,
-                Authors = entity.BookAuthors.Select(ba => ba.Author.ToBLL()).ToList(),
-                Genres = entity.BookGenres.Select(bg => bg.Genre.ToBLL()).ToList(),
-                Libraries = entity.BookLibraries.Select(bl => 
+                Authors = entity.Authors.Select(a => a.ToBLL()).ToList(),
+                Genres = entity.Genres.Select(g => g.ToBLL()).ToList(),
+                Libraries = entity.BookLibraries.Select(bl =>
                     new BLL.LibraryStock
                     {
                         LibraryID = bl.LibraryID,
@@ -50,10 +50,23 @@ namespace BLL_Bibliotheque.Mapper
                 Title = entity.Title,
                 Edition = entity.Edition,
                 EditionDate = entity.EditionDate,
-                Price = entity.Price,
+                Price = entity.Price
             };
         }
 
+        public static DAL.Book ToDALDetails(this BLL.Book entity)
+        {
+            return new DAL.Book
+            {
+                BookID = entity.BookID,
+                Title = entity.Title,
+                Edition = entity.Edition,
+                EditionDate = entity.EditionDate,
+                Price = entity.Price,
+                Authors = entity.Authors.Select(a => a.ToDAL()).ToList(),
+                Genres = entity.Genres.Select(g => g.ToDAL()).ToList(),
+            };
+        }
         // Author
         public static BLL.Author ToBLLDetails(this DAL.Author entity)
         {
@@ -62,7 +75,7 @@ namespace BLL_Bibliotheque.Mapper
                 AuthorID = entity.AuthorID,
                 FirstName = entity.FirstName,
                 Name = entity.Name,
-                Books = entity.BookAuthors.Select(ba => ba.Book.ToBLL()).ToList(),
+                Books = entity.Books.Select(b => b.ToBLL()).ToList(),
             };
         }
         public static BLL.Author ToBLL(this DAL.Author entity)
@@ -146,7 +159,7 @@ namespace BLL_Bibliotheque.Mapper
             return new BLL.Genre
             {
                 GName = entity.GName,
-                Books = entity.BookGenres.Select(bg => bg.Book.ToBLL()).ToList(),
+                Books = entity.Books.Select(b => b.ToBLL()).ToList(),
             };
         }
         public static BLL.Genre ToBLL(this DAL.Genre entity)
@@ -176,7 +189,7 @@ namespace BLL_Bibliotheque.Mapper
                 ClientID = entity.ClientID,
                 Price = entity.Price,
                 Client = entity.Client.ToBLL(),
-                Books = entity.BookLeases.Select(b => b.Book.ToBLL()).ToList(),
+                Books = entity.Books.Select(b => b.ToBLL()).ToList(),
             };
         }
         public static BLL.Lease ToBLL(this DAL.Lease entity)
@@ -198,7 +211,20 @@ namespace BLL_Bibliotheque.Mapper
                 LeaseDate = entity.LeaseDate,
                 ReturnDate = entity.ReturnDate,
                 ClientID = entity.ClientID,
-                Price = entity.Price
+                Price = entity.Price,
+            };
+        }
+
+        public static DAL.Lease ToDALDetails(this BLL.Lease entity)
+        {
+            return new DAL.Lease
+            {
+                LeaseID = entity.LeaseID,
+                LeaseDate = entity.LeaseDate,
+                ReturnDate = entity.ReturnDate,
+                ClientID = entity.ClientID,
+                Price = entity.Price,
+                Books = entity.Books.Select(b => b.ToDAL()).ToList(),
             };
         }
 
@@ -212,7 +238,7 @@ namespace BLL_Bibliotheque.Mapper
                 ClientID = entity.ClientID,
                 Price = entity.Price,
                 Client = entity.Client.ToBLL(),
-                Books = entity.BookSales.Select(b => b.Book.ToBLL()).ToList(),
+                Books = entity.Books.Select(b => b.ToBLL()).ToList(),
             };
         }
         public static BLL.Sale ToBLL(this DAL.Sale entity)
@@ -233,7 +259,8 @@ namespace BLL_Bibliotheque.Mapper
                 SaleID = entity.SaleID,
                 DateSale = entity.DateSale,
                 ClientID = entity.ClientID,
-                Price = entity.Price
+                Price = entity.Price,
+                Books = entity.Books.Select(b => b.ToDAL()).ToList(),
             };
         }
 
@@ -287,54 +314,6 @@ namespace BLL_Bibliotheque.Mapper
                 LibraryID = entity.LibraryID,
                 Library = entity.Library.ToBLL(),
                 QDispo = entity.QDispo,
-            };
-        }
-
-        // BookAuthor
-        private static BLL.BookAuthor ToBLL(this DAL.BookAuthor entity)
-        {
-            return new BLL.BookAuthor
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToBLL(),
-                AuthorID = entity.AuthorID,
-                Author = entity.Author.ToBLL(),
-            };
-        }
-
-        // BookGenre
-        private static BLL.BookGenre ToBLL(this DAL.BookGenre entity)
-        {
-            return new BLL.BookGenre
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToBLL(),
-                GName = entity.GName,
-                Genre = entity.Genre.ToBLL(),
-            };
-        }
-
-        // BookSale
-        private static BLL.BookSale ToBLL(this DAL.BookSale entity)
-        {
-            return new BLL.BookSale
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToBLL(),
-                SaleID = entity.SaleID,
-                Sale = entity.Sale.ToBLL(),
-            };
-        }
-
-        // BookLease
-        private static BLL.BookLease ToBLL(this DAL.BookLease entity)
-        {
-            return new BLL.BookLease
-            {
-                BookID = entity.BookID,
-                Book = entity.Book.ToBLL(),
-                LeaseID = entity.LeaseID,
-                Lease = entity.Lease.ToBLL(),
             };
         }
 

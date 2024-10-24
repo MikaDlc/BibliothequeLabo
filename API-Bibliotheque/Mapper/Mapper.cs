@@ -25,8 +25,8 @@ namespace API_Bibliotheque.Mapper
                     Edition = book.Edition,
                     EditionDate = book.EditionDate,
                     Price = book.Price,
-                    Authors = book.Authors.Select(a => new BLL.Author { AuthorID = a }).ToList(),
-                    Genres = book.Genres.Select(g => new BLL.Genre { GName = g }).ToList(),
+                    Authors = book.Authors.Select(id => new BLL.Author { AuthorID = id }).ToList(),
+                    Genres = book.Genres.Select(GName => new BLL.Genre { GName = GName}).ToList(),
                     Libraries = bookLibraries,
                 };
             }

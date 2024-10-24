@@ -13,11 +13,7 @@ namespace EF_Bibliotheque
         public DbSet<Library> Libraries { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Author> Authors { get; set; }
-        public DbSet<BookAuthor> BookAuthors { get; set; }
-        public DbSet<BookGenre> BookGenres { get; set; }
-        public DbSet<BookLease> BookLeases { get; set; }
         public DbSet<BookLibrary> BookLibraries { get; set; }
-        public DbSet<BookSale> BookSales { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,12 +23,8 @@ namespace EF_Bibliotheque
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AuthorConfig());
-            modelBuilder.ApplyConfiguration(new BookAuthorConfig());
             modelBuilder.ApplyConfiguration(new BookConfig());
-            modelBuilder.ApplyConfiguration(new BookGenreConfig());
-            modelBuilder.ApplyConfiguration(new BookLeaseConfig());
             modelBuilder.ApplyConfiguration(new BookLibraryConfig());
-            modelBuilder.ApplyConfiguration(new BookSaleConfig());
             modelBuilder.ApplyConfiguration(new ClientConfig());
             modelBuilder.ApplyConfiguration(new GenreConfig());
             modelBuilder.ApplyConfiguration(new LeaseConfig());

@@ -15,6 +15,7 @@ namespace EF_Bibliotheque.Configs
             builder.Property(a => a.Name).IsRequired().HasMaxLength(50);
             builder.Property(a => a.FirstName).IsRequired().HasMaxLength(50);
             builder.HasIndex(a => new { a.Name, a.FirstName }).IsUnique();
+            builder.HasMany(a => a.Books).WithMany(b => b.Authors);
         }
     }
 }

@@ -8,9 +8,9 @@
         public int EditionDate { get; set; }
         public double Price { get; set; }
         public List<BookLibrary> BookLibraries { get; set; }
-        public List<BookAuthor> BookAuthors { get; set; }
-        public List<BookGenre> BookGenres { get; set; }
-        public List<BookSale> BookSales { get; set; }
-        public List<BookLease> BookLeases { get; set; }
+        public ICollection<Author> Authors { get; set; }
+        public ICollection<Genre> Genres { get; set; }
+        public ICollection<Sale> Sales { get; set; }
+        public ICollection<Lease> Leases { get; set; }
     }
 }

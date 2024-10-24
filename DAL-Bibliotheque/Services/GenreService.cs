@@ -23,7 +23,7 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                return _context.Genres.Include(g => g.BookGenres).ThenInclude(bg => bg.Book)
+                return _context.Genres.Include(g => g.Books)
                                       .First(g => g.GName == Genre).ToDALDetails();
             }
             catch (InvalidOperationException)

@@ -41,8 +41,8 @@ namespace DAL_Bibliotheque.Services
         {
             try
             {
-                return _context.Books.Include(b => b.BookAuthors).ThenInclude(ba => ba.Author)
-                                     .Include(b => b.BookGenres).ThenInclude(bg => bg.Genre)
+                return _context.Books.Include(b => b.Genres)
+                                     .Include(b => b.Authors)
                                      .Include(b => b.BookLibraries).ThenInclude(bl => bl.Library)
                                      .First(b => b.BookID == id).ToDALDetails();
             }
@@ -57,6 +57,8 @@ namespace DAL_Bibliotheque.Services
             try
             {
                 var book = entity.ToEF();
+                book.Authors = entity.Authors.Select(a => _context.Authors.Find(a.AuthorID)).ToList();
+                book.Genres = entity.Genres.Select(g => _context.Genres.Find(g.GName)).ToList();
                 _context.Books.Add(book);
                 _context.SaveChanges();
                 return book.BookID;

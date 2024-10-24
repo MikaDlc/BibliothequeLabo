@@ -8,6 +8,6 @@ namespace DAL_Bibliotheque.Entities
         public int AuthorID { get; set; }
         public string Name { get; set; }
         public string FirstName { get; set; }
-        public List<BookAuthor> BookAuthors { get; set; }
+        public List<Book> Books { get; set; }
     }
 }

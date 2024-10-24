@@ -10,7 +10,7 @@ namespace DAL_Bibliotheque.Entities
         public int EditionDate { get; set; }
         public double Price { get; set; }
         public List<BookLibrary> BookLibraries { get; set; }
-        public List<BookAuthor> BookAuthors { get; set; }
-        public List<BookGenre> BookGenres { get; set; }
+        public List<Author> Authors { get; set; }
+        public List<Genre> Genres { get; set; }
     }
 }

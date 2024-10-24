@@ -8,19 +8,19 @@ namespace BLL_Bibliotheque.Services
     public class BookService : IBookRepository<Book>
     {
         private IBookRepository<DAL.Book> _bookService;
-        private IBookAuthorRepository<DAL.BookAuthor> _bookAuthorService;
-        private IBookGenreRepository<DAL.BookGenre> _bookGenreService;
         private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryService;
+        private IAuthorRepository<DAL.Author> _authorService;
+        private IGenreRepository<DAL.Genre> _genreService;
 
         public BookService(IBookRepository<DAL.Book> Service,
-                           IBookAuthorRepository<DAL.BookAuthor> bookAuthorService,
-                           IBookGenreRepository<DAL.BookGenre> bookGenreService,
-                           IBookLibraryRepository<DAL.BookLibrary> bookLibraryService)
+                           IBookLibraryRepository<DAL.BookLibrary> bookLibraryService,
+                           IAuthorRepository<DAL.Author> authorService,
+                           IGenreRepository<DAL.Genre> genreService)
         {
             _bookService = Service;
-            _bookAuthorService = bookAuthorService;
-            _bookGenreService = bookGenreService;
             _bookLibraryService = bookLibraryService;
+            _authorService = authorService;
+            _genreService = genreService;
         }
 
         public void Delete(int id)
@@ -40,17 +40,14 @@ namespace BLL_Bibliotheque.Services
 
         public int Insert(Book entity)
         {
-            // TODO: Refaire les relation plus transaction
+            // TODO: Implementer la Transaction
             int BookID = 0;
             try
             {
-                BookID = _bookService.Insert(entity.ToDAL());
+                var newBook = entity.ToDALDetails();
+                BookID = _bookService.Insert(newBook);
                 foreach (LibraryStock bookLibrary in entity.Libraries)
                     _bookLibraryService.Insert(new DAL.BookLibrary { BookID = BookID, LibraryID = bookLibrary.LibraryID, QDispo = bookLibrary.Stock });
-                foreach (Author bookAuthor in entity.Authors)
-                    _bookAuthorService.Insert(new DAL.BookAuthor { BookID = BookID, AuthorID = bookAuthor.AuthorID });
-                foreach (Genre bookGenre in entity.Genres)
-                    _bookGenreService.Insert(new DAL.BookGenre { BookID = BookID, GName = bookGenre.GName });
                 return BookID;
             }
             catch (Exception ex)
@@ -58,10 +55,6 @@ namespace BLL_Bibliotheque.Services
                 Delete(BookID); // Rollback
                 foreach (LibraryStock bookLibrary in entity.Libraries)
                     _bookLibraryService.Delete(BookID, bookLibrary.LibraryID); // Rollback
-                foreach (Author bookAuthor in entity.Authors)
-                    _bookAuthorService.Delete(BookID, bookAuthor.AuthorID); // Rollback
-                foreach (Genre bookGenre in entity.Genres)
-                    _bookGenreService.Delete(BookID, bookGenre.GName); // Rollback
                 throw new Exception(ex.Message);
             }
         }

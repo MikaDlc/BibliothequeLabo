@@ -61,10 +61,10 @@ namespace API_Bibliotheque.Controllers
         }
 
         [Authorize("adminRequired")]
-        [HttpPut("{id:int}")]
-        public IActionResult Put([FromRoute] int id)
+        [HttpPut("{id:int}/{libraryId:int}")]
+        public IActionResult Put([FromRoute] int id, [FromRoute] int libraryId)
         {
-            _leaseService.Update(id, new BLL.Lease { ReturnDate = DateTime.Now});
+            _leaseService.Update(libraryId, new BLL.Lease { ReturnDate = DateTime.Now, LeaseID = id});
             return NoContent();
         }
     }

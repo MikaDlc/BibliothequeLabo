@@ -1,6 +1,6 @@
 ﻿namespace Commun_Bibliotheque.Entities
 {
-    public interface ISale : IEntity
+    public interface ISale
     {
     }
 }

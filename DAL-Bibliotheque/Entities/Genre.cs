@@ -6,6 +6,6 @@ namespace DAL_Bibliotheque.Entities
     public class Genre : IGenre
     {
         public string GName { get; set; }
-        public List<BookGenre> BookGenres { get; set; }
+        public List<Book> Books { get; set; }
     }
 }
