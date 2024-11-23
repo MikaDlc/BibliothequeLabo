@@ -8,5 +8,6 @@ namespace Commun_Bibliotheque.Repositories
         public IEnumerable<TLibrary> Get();
         public TLibrary Get(int id);
         public int Insert(TLibrary entity);
+        public void Update(int idBook, int idLibrary, int Stock);
     }
 }

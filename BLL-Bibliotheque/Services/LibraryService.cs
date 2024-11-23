@@ -8,9 +8,12 @@ namespace BLL_Bibliotheque.Services
     public class LibraryService : ILibraryRepository<Library>
     {
         private ILibraryRepository<DAL.Library> _libraryRepository;
-        public LibraryService(ILibraryRepository<DAL.Library> libraryRepository)
+        private IBookLibraryRepository<DAL.BookLibrary> _bookLibraryRepository; 
+        public LibraryService(ILibraryRepository<DAL.Library> libraryRepository,
+                              IBookLibraryRepository<DAL.BookLibrary> bookLibraryRepository)
         {
             _libraryRepository = libraryRepository;
+            _bookLibraryRepository = bookLibraryRepository;
         }
 
         public IEnumerable<Library> Get()
@@ -26,6 +29,11 @@ namespace BLL_Bibliotheque.Services
         public int Insert(Library entity)
         {
             return _libraryRepository.Insert(entity.ToDAL());
+        }
+
+        public void Update(int idBook, int idLibrary, int Stock)
+        {
+            _bookLibraryRepository.Update(idBook, idLibrary, Stock);
         }
     }
 }

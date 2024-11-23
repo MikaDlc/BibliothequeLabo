@@ -8,5 +8,6 @@ namespace Commun_Bibliotheque.Repositories
         public void Delete(int BookID, int LibraryID);
         public void LeaseTheBook(int BookID, int LibraryID);
         public void ReturnTheBook(int BookID, int LibraryID);
+        public void Update(int idBook, int idLibrary, int Stock);
     }
 }

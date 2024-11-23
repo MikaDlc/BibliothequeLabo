@@ -54,5 +54,23 @@ namespace API_Bibliotheque.Controllers
             }
         }
 
+        [Authorize("adminRequired")]
+        [HttpPost("Stock")]
+        public IActionResult Put([FromBody] StockPost stock)
+        {
+            try
+            {
+                if (stock == null)
+                    return BadRequest();
+
+                _libraryRepository.Update(stock.idBook, stock.idLibrary, stock.Stock);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

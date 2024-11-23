@@ -67,5 +67,12 @@ namespace DAL_Bibliotheque.Services
             bookLibrary.QDispo = ++bookLibrary.QDispo;
             _context.SaveChanges();
         }
+
+        public void Update(int idBook, int idLibrary, int Stock)
+        {
+            var bookLibrary = _context.BookLibraries.First(bl => bl.LibraryID == idLibrary && bl.BookID == idBook);
+            bookLibrary.QDispo += Stock;
+            _context.SaveChanges();
+        }
     }
 }

@@ -46,5 +46,10 @@ namespace DAL_Bibliotheque.Services
                 throw new Exception("Insert failed");
             }
         }
+
+        public void Update(int idBook, int idLibrary, int Stock)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

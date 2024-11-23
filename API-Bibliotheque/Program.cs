@@ -48,10 +48,10 @@ namespace API_Bibliotheque
                     {
                         options.TokenValidationParameters = new TokenValidationParameters()
                         {
-                            ValidateIssuerSigningKey = true,
+                            ValidateIssuerSigningKey = false,
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtGenerator.secretKey)),
-                            ValidateLifetime = true,
-                            ValidateIssuer = true,
+                            ValidateLifetime = false,
+                            ValidateIssuer = false,
                             ValidIssuer = "monapi.com",
                             ValidateAudience = false,
                         };
@@ -64,7 +64,15 @@ namespace API_Bibliotheque
                 options.AddPolicy("userRequired", policy => policy.RequireAuthenticatedUser());
             });
 
+            //builder.Services.AddCors(options => options.AddPolicy("MyPolicy",
+            //    o => o
+            //          .WithOrigins("https://localhost:7041", "http://localhost:4200/")
+            //          ));
+            //.AllowAnyHeader()
+                      //.AllowAnyMethod())
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -78,6 +86,10 @@ namespace API_Bibliotheque
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //app.UseCors("MyPolicy");
+
+            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod());
+            app.UseCors(o => o.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
             app.MapControllers();
 
             app.Run();

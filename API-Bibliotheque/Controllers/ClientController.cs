@@ -27,7 +27,7 @@ namespace API_Bibliotheque.Controllers
         }
 
         [Authorize("userRequired")]
-        [HttpGet("/profile")]
+        [HttpGet("profile")]
         public IActionResult GetUserInfo()
         {
             try

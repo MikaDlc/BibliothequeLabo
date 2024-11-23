@@ -1,6 +1,8 @@
-﻿namespace BLL_Bibliotheque.Entities
+﻿using Commun_Bibliotheque.Entities;
+
+namespace BLL_Bibliotheque.Entities
 {
-    public class LibraryStock
+    public class LibraryStock : ILibrary
     {
         public int LibraryID { get; set; }
         public string Street { get; set; }

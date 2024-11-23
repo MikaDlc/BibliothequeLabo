@@ -30,7 +30,7 @@ namespace API_Bibliotheque.Controllers
             string hashpwd = Crypt.HashPassword(auth.Password);
 
             if (_AuthService.Register(auth.Email, hashpwd, auth.Name, auth.FirsName))
-                return Ok();
+                return NoContent();
             else
                 return BadRequest("Register Failed");
         }
@@ -49,7 +49,7 @@ namespace API_Bibliotheque.Controllers
                 {
                     Auth user = _AuthService.Login(auth.Email, dbpwd).ToAPI();
                     string token = _jwt.GenerateToken(user);
-                    return Ok(token);
+                    return Ok(new { accessToken = token });
                 }
                 else
                     return BadRequest("password Failed");
